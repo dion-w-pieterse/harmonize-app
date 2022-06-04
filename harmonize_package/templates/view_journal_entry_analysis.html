@@ -1,0 +1,67 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}View Journal Entry Analysis{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    {% if current_user.user_type == 'patient' %}
+    <h1 class="display-4">Journal Entry Analysis</h1>
+    <p class="lead">Journal Entry Analysis</p>
+    {% elif current_user.user_type == 'provider' %}
+    <h1 class="display-4">Journal Entry Analysis</h1>
+    <p class="lead">Below is the sentiment analysis score for this specific blog entry. Name Entity Recognition (NER) is also provided.</p>
+    {% endif %}
+    <hr class="my-4">
+</div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+<div>
+    <h3 class="mt-3">Original Journal Entry Text:</h3>
+    <p>{{ blog_entry.body }}</p>
+    <h3 class="mt-3">Vader Sentiment Analysis Score (Out of 1.0):</h3>
+    <p>
+        Negative Score: {{ blog_entry.analysis_neg_score }}<br>
+        Neutral Score: {{ blog_entry.analysis_neu_score }}<br>
+        Positive Score: {{ blog_entry.analysis_pos_score }}<br>
+        Compound Score: {{ blog_entry.analysis_compound_score }}
+    </p>
+    <button type="button" class="btn btn-danger">
+        Negative Score: <span class="badge badge-danger">{{ blog_entry.analysis_neg_score }} = {{ "%.2f"|format(blog_entry.analysis_neg_score * 100) }}%</span>
+    </button>
+    <button type="button" class="btn btn-secondary">
+        Neutral Score: <span class="badge badge-secondary">{{ blog_entry.analysis_neu_score }} = {{ "%.2f"|format(blog_entry.analysis_neu_score * 100) }}%</span>
+    </button>
+    <button type="button" class="btn btn-success">
+        Positive Score: <span class="badge badge-success">{{ blog_entry.analysis_pos_score }} = {{ "%.2f"|format(blog_entry.analysis_pos_score * 100) }}%</span>
+    </button>
+
+    <div class="progress mt-4 mb-4">
+        <div class="progress-bar bg-danger" role="progressbar" style="width:{{ blog_entry.analysis_neg_score * 100 }}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar bg-secondary" role="progressbar" style="width:{{ blog_entry.analysis_neu_score * 100 }}%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar bg-success" role="progressbar" style="width:{{ blog_entry.analysis_pos_score * 100 }}%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+
+    <p>The compound value is the normalization of the negative, neutral, and positive values above. A compound score equal to 0 infers a neutral score overall. A compound score above 0 infers a positive score, and a score below zero is a negative score overall.</p>
+    <button type="button" class="btn btn-info">
+        Compound Score: <span class="badge badge-info">{{ blog_entry.analysis_compound_score }} = {{ "%.2f"|format(blog_entry.analysis_compound_score * 100) }}%</span>
+    </button>
+
+    <div class="progress mt-4">
+        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{ blog_entry.analysis_compound_score * 100 }}%"></div>
+    </div>
+
+
+    <h3 class="mt-5">Named Entity Recognition (Per Sentence):</h3>
+    {% for sentence in entry_document.sents %}
+        {{ displacy.render(snlp(sentence.text), style='ent', options = {'ents': ['PERSON', 'NORP', 'FAC', 'ORG', 'GPE', 'LOC', 'PRODUCT', 'EVENT', 'WORK_OF_ART', 'LAW', 'LANGUAGE', 'DATE', 'TIME', 'PERCENTAGE', 'MONEY', 'QUANTITY', 'ORDINAL', 'CARDINAL'] })|markdown }}
+    {% endfor %}
+
+</div>
+
+
+
+
+{% endblock template_body %}

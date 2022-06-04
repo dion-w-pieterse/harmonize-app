@@ -1,0 +1,18 @@
+{% extends 'admin/master.html' %}
+
+{% block head_css %}
+{{ super() }}
+<link  rel="stylesheet" href="{{ url_for('static', filename='administrator_styling.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="page-top-spacer"></div>
+<div class="jumbotron">
+    <h1 class="display-4">Welcome Admin</h1>
+    <p class="lead">This is the application data management system.</p>
+    <hr class="my-4">
+    <p>Return to the main application.</p>
+    <a class="btn btn-outline-dark btn-lg" href="{{ url_for('index') }}" role="button">Back To Harmonize</a>
+</div>
+
+{% endblock %}

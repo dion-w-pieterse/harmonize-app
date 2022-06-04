@@ -1,0 +1,163 @@
+/**********************************
+*** This Styling is Specific To The Index Page ONLY! ***
+*** Use the master.html inline CSS styles to edit the other pages.
+ *********************************/
+
+html {
+    background-color: #00182c;
+}
+
+body {
+    margin-top: 88px !important;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px !important;
+    color: #00182c !important;
+}
+
+div.page-top-spacer {
+    height:50px !important;
+    width: 100%;
+}
+
+
+/**********************************
+*** Button Styling
+***********************************
+ */
+.btn {
+    border-radius: 0rem;
+}
+/* Override default Bootstrap 4 styling for btn-outline-dark */
+.btn-outline-dark {
+    color: #00182c;
+    border-color: #00182c;
+}
+
+/* Override default Bootstrap 4 styling for btn-outline-dark */
+.btn-outline-dark:hover {
+    color: #fff;
+    border-color: #00182c;
+    background-color: #00182c;
+}
+
+/**********************************
+*** Navigation ***
+ *********************************/
+
+.logo-custom-styling {
+    vertical-align:middle !important;
+    width:67px !important;
+    height:50px !important;
+}
+
+span.logo_name {
+    font-family: 'Archivo', sans-serif;
+    font-weight:100;
+}
+
+nav.navbar {
+    border-bottom: 4px solid #4ec3c7 !important;
+    background: #00182c !important;
+}
+
+.navbar-brand {
+    font-size: 1.6rem;
+    color: #fff !important;
+}
+
+.navbar-brand:hover {
+    color: #4ec3c7 !important;
+}
+
+.nav-link {
+    color: #fff !important;
+    margin-right: 1.5rem !important;
+}
+
+.nav-link:hover {
+    color: #4ec3c7 !important;
+}
+
+/* Styling for Animating the Navbar Hamburger */
+
+.top-bar, .middle-bar, .bottom-bar {
+    transition: all .3s;
+    margin: 6px;
+    height: 2px;
+    width: 30px;
+}
+
+.morph-hamburger .top-bar {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.morph-hamburger .middle-bar {
+    opacity: 0;
+}
+
+.morph-hamburger .bottom-bar {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+
+/***************************
+*** Footer ***
+ **************************/
+
+footer.custom_footer {
+    min-height:20rem;
+    background-color:#00182c !important;
+    color: #fff;
+}
+
+div.section-padding {
+    padding-top: 3rem;
+    padding-left:4rem;
+}
+
+footer h5 {
+    margin-bottom: 1.1rem;
+}
+
+footer h5 span {
+    border-bottom: 2px solid #4ec3c7;
+    padding-bottom:0.25rem;
+}
+
+footer a:link {
+    color: #fff !important;
+}
+
+footer a:visited {
+    color: #fff !important;
+}
+
+footer a:hover {
+    color: #4ec3c7 !important;
+}
+
+footer a:focus {
+    color: #fff !important;
+}
+
+footer a:active {
+    color: #fff !important;
+}
+
+div.custom-copyright-styling {
+    border-top: 1px solid #4ec3c7;
+    margin-top:3rem;
+    padding: 3rem 0rem 0rem;
+}
+
+img.author-logo-custom-styling {
+    vertical-align:middle !important;
+    width:60px !important;
+    height:69px !important;
+}
+
+span.author-name-style, span.text-color-teal {
+    color: #4ec3c7;
+}
+
+

@@ -1,0 +1,237 @@
+{% extends admin_base_template %}
+
+{% block head_css %}
+{{ super() }}
+<style>
+
+    html {
+        background-color: #00182c;
+    }
+
+    body {
+        margin-top: 88px !important;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px !important;
+        color: #00182c !important;
+    }
+
+    /* This makes the content drop down below the fixed navigation */
+    div.page-top-spacer {
+        height:30px !important;
+        width: 100%;
+    }
+
+    div.create-page-top-spacer {
+        height:30px !important;
+        width: 100%;
+    }
+
+    div.edit-page-top-spacer {
+        height:30px !important;
+        width: 100%;
+    }
+
+    .logo-custom-styling {
+        vertical-align:middle !important;
+        width:67px !important;
+        height:50px !important;
+    }
+
+    span.logo_name {
+        font-family: 'Archivo', sans-serif;
+        font-weight:100;
+    }
+
+    nav.navbar {
+        border-bottom: 4px solid #4ec3c7 !important;
+        background: #00182c !important;
+    }
+
+    .navbar-brand {
+        font-size: 1.6rem;
+        color: #fff !important;
+    }
+
+    .navbar-brand:hover {
+        color: #4ec3c7 !important;
+    }
+
+    .nav-link {
+        color: #fff !important;
+        margin-right: 1.5rem !important;
+    }
+
+    .nav-link:hover {
+        color: #4ec3c7 !important;
+    }
+
+    /* Styling for Animating the Navbar Hamburger */
+
+    .top-bar, .middle-bar, .bottom-bar {
+        transition: all .3s;
+        margin: 6px;
+        height: 2px;
+        width: 30px;
+    }
+
+    .morph-hamburger .top-bar {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .morph-hamburger .middle-bar {
+        opacity: 0;
+    }
+
+    .morph-hamburger .bottom-bar {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /*div.dropdown-menu {*/
+    /*    background: #00182c !important;*/
+    /*    border:2px solid #4ec3c7;*/
+    /*    box-shadow: 1px 2px 5px #00182c;*/
+    /*    border-radius: 0;*/
+    /*}*/
+
+    /*div.dropdown-divider {*/
+    /*    border: 1px solid #4ec3c7 !important;*/
+    /*}*/
+
+    /*a.dropdown-item:link {*/
+    /*    color: #fff !important;*/
+    /*}*/
+
+    /*a.dropdown-item:visited {*/
+    /*    color: #fff !important;*/
+    /*}*/
+
+    /*a.dropdown-item:hover {*/
+    /*    background-color: #4ec3c7;*/
+    /*    color: #00182c !important;*/
+    /*}*/
+
+    /*a.dropdown-item:focus {*/
+    /*    color: #fff !important;*/
+    /*}*/
+
+    /*a.dropdown-item:active {*/
+    /*    color: #fff !important;*/
+    /*}*/
+
+    /* Style Search Bar */
+    /*nav form input#search {*/
+    /*    border:none;*/
+    /*    border-bottom: 1px solid #4ec3c7 !important;*/
+    /*    border-radius:0;*/
+    /*    background: transparent;*/
+    /*    border-bottom: 1px solid #4ec3c7;*/
+    /*    color: #fff;*/
+    /*}*/
+
+    /*nav form input#search:focus {*/
+    /*    box-shadow: none;*/
+    /*    background: transparent;*/
+    /*    border-bottom: 1px solid #4ec3c7;*/
+    /*}*/
+
+    /*.nav-custom-search-button {*/
+    /*    border-radius: 0;*/
+    /*}*/
+
+    /*.nav-custom-search-button:hover {*/
+    /*    border-radius: 0;*/
+    /*}*/
+
+    /*nav form input#search::placeholder { !* Everything except MS Browsers *!*/
+    /*    opacity: 1; !* Firefox *!*/
+    /*    color: #fff;*/
+
+    /*}*/
+
+    /*nav form input#search::-ms-input-placeholder { !* MS Edge *!*/
+    /*    color: #fff;*/
+    /*}*/
+
+    /*nav form input#search:-ms-input-placeholder { !* IE 10-11 *!*/
+    /*    color: #fff;*/
+    /*}*/
+
+    /********************
+    *** Styling for list
+    ********************
+     */
+    ul.nav.nav-tabs li.nav-item a {
+        color:#00182c !important;
+    }
+
+    /* Styles the Export */
+    ul.nav.nav-tabs li a.nav-link {
+        color: #00182c !important;
+    }
+
+    /*** list dropdown styling for flask-admin ***/
+
+
+
+
+    /***************************
+    *** Footer ***
+    **************************/
+
+    footer.custom_footer {
+        min-height:20rem;
+        background-color:#00182c !important;
+        color: #fff;
+    }
+
+    div.section-padding {
+        padding-top: 3rem;
+        padding-left:4rem;
+    }
+
+    footer h5 {
+        margin-bottom: 1.1rem;
+    }
+
+    footer h5 span {
+        border-bottom: 2px solid #4ec3c7;
+        padding-bottom:0.25rem;
+    }
+
+    footer a:link {
+        color: #fff !important;
+    }
+
+    footer a:visited {
+        color: #fff !important;
+    }
+
+    footer a:hover {
+        color: #4ec3c7 !important;
+    }
+
+    footer a:focus {
+        color: #fff !important;
+    }
+
+    footer a:active {
+        color: #fff !important;
+    }
+
+    div.custom-copyright-styling {
+        border-top: 1px solid #4ec3c7;
+        margin-top:3rem;
+        padding: 3rem 0rem 0rem;
+    }
+
+    img.author-logo-custom-styling {
+        vertical-align:middle !important;
+        width:60px !important;
+        height:69px !important;
+    }
+
+    span.author-name-style, span.text-color-teal {
+        color: #4ec3c7;
+    }
+</style>
+{% endblock %}

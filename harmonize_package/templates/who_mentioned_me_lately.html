@@ -1,0 +1,50 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Who Mentioned Me Lately?{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <h1 class="display-4">Who Mentioned {{ current_user.user_alias }} Within The Last Week?</h1>
+    <p class="lead">This is a list of users who mentioned me within the last 7 days.</p>
+    <hr class="my-4">
+    {% if current_user.user_type == 'patient' %}
+        <a class="btn btn-outline-dark" href="{{ url_for('patient_splashboard') }}">Return To Patient Splashboard</a>
+    {% elif current_user.user_type == 'provider' %}
+        <a class="btn btn-outline-dark" href="{{ url_for('provider_splashboard') }}">Return To Provider Splashboard</a>
+    {% endif %}
+</div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<ul class="list-group">
+    {% for user in who_mentioned_me %}
+    <li class="list-group-item">
+        <div class="d-flex bd-highlight">
+            <div class="p-2 bd-highlight">
+                <h5>User Alias: <a href="{{url_for('blog', user_id=user.id) }}">{{ user.user_alias }}</a></h5>
+                <small>User Type: {{ user.user_type }}</small>
+            </div>
+            <div class="p-2 ml-auto flex-shrink-1 bd-highlight">
+                <p>Blog Mention Count: {{ user.blog_mention_count }}</p>
+            </div>
+            <div class="p-2 ml-auto flex-shrink-1 bd-highlight">
+                <p>Forum Response Mention Count: {{ user.convo_response_count }}</p>
+            </div>
+            <div class="p-2 ml-auto flex-shrink-1 bd-highlight">
+                {% if user.user_type == 'patient' %}
+                <a href="{{ url_for('blog', user_id=user.id)}}" class="btn btn-outline-secondary">Visit Journal</a>
+                {% elif user.user_type == 'provider' %}
+                <a href="{{ url_for('blog', user_id=user.id)}}" class="btn btn-outline-secondary">Visit Blog</a>
+                {% endif %}
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+

@@ -1,0 +1,116 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}User Blog Landing{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        {% if found_user.user_type == 'patient' %}
+            <h1 class="display-4">{{ found_user.user_alias }}'s Journal Blog</h1>
+            <p class="lead">Please read my public journal entries.</p>
+            <hr class="my-4">
+            {% if found_user.id == current_user.id %}
+                <a class="btn btn-outline-info" href="{{ url_for('write_blog_entry', user_id=current_user.id) }}">Write an Entry</a>
+            {% endif %}
+        {% elif found_user.user_type == 'provider' %}
+            <h1 class="display-4">{{ found_user.user_alias }}'s Provider Blog</h1>
+            <p class="lead">Please read more about the provider via his practice's blog posts.</p>
+            <hr class="my-4">
+            {% if found_user.id == current_user.id %}
+                <a class="btn btn-outline-info" href="{{ url_for('write_blog_entry', user_id=current_user.id) }}">Write an Entry</a>
+            {% endif %}
+        {% endif %}
+        <a class="btn btn-outline-dark" href="{{ url_for('landing_page', user_id=found_user.id) }}">{{ found_user.user_alias }}'s Landing Page</a>
+
+    </div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+    {% for entry in user_blog.items %}
+        {% if queries.chk_granted_privacy_access(grantor_id=entry.user.id, grantee_id=current_user.id) or current_user.id == entry.user.id %}
+            <div class="card w-100 mb-4">
+                <div class="card-header">
+                    <h5 class="card-title"><a href="{{ url_for('view_blog_entry', user_id=entry.user.id, blog_entry_id=entry.id) }}">{{ entry.title }}</a></h5>
+                    <p class="card-text"><small>Created Date: {{ entry.created_date.strftime('%m-%d-%Y at %H:%M:%S') }}</small>&nbsp;|&nbsp;
+                        <small>Author: <a href="{{ url_for('landing_page', user_id=entry.user.id) }}">{{ entry.user.user_alias }}</a></small>&nbsp;|&nbsp;
+                        <small>Private Entry: {{ entry.private_entry }}</small></p>
+                </div>
+                {% if entry.entry_img != 'blog_placeholder_img.jpg' %}
+                    <img class="custom-card-img-top" src="{{ url_for('static', filename=('user_blog_imgs/' + entry.entry_img)) }}" class="card-img-top" alt="...">
+                {% endif %}
+                <div class="card-body">
+
+                    <p class="card-text">{{ entry.body }}</p>
+
+                    {% if current_user.user_type == 'provider' and queries.chk_granted_privacy_access(grantor_id=found_user.id, grantee_id=current_user.id) %}
+                    <small class="score-indicator-desc">Sentiment Analysis Score Indicator:</small>
+                    <div class="progress mt-2 mb-2">
+                        <div class="progress-bar  bg-danger" role="progressbar" style="width:{{ entry.analysis_neg_score * 100 }}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar  bg-secondary" role="progressbar" style="width:{{ entry.analysis_neu_score * 100 }}%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar  bg-success" role="progressbar" style="width:{{ entry.analysis_pos_score * 100 }}%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer d-flex flex-row bd-highlight">
+                    {% if not queries.chk_user_liked_entry(user_id=current_user.id, blog_entry_id=entry.id) %}
+                        <a href="{{ url_for('like_blog_entry', blog_entry_id=entry.id) }}" class="btn d-inline-block btn-outline-info like-style-btn ajax-like-btn"><i class="far fa-thumbs-up"></i> Like(s) {{ entry.blog_entry_likes.count() }}</a>
+                    {% else %}
+                        <a href="{{ url_for('unlike_blog_entry', blog_entry_id=entry.id) }}" class="btn d-inline-block btn-outline-danger"><i class="far fa-thumbs-down"></i> Un-Like</a>
+                        <a href="{{ url_for('like_blog_entry', blog_entry_id=entry.id) }}" class="btn d-inline-block btn-outline-info ajax-like-btn disabled ml-2"><i class="far fa-thumbs-up"></i> {{ entry.blog_entry_likes.count() }}</a>
+                    {% endif %}
+
+                    {% if current_user.user_type == 'provider' and queries.chk_granted_privacy_access(grantor_id=found_user.id, grantee_id=current_user.id) %}
+                    <a class="btn btn-outline-info ml-2" href="{{ url_for('view_journal_entry_analysis', user_id=found_user.id, blog_entry_id=entry.id) }}">View Analysis</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% elif queries.chk_granted_privacy_access(grantor_id=entry.user.id, grantee_id=current_user.id) == None and entry.private_entry == False %}
+            <div class="card w-100 mb-4">
+                <div class="card-header">
+                    <h5 class="card-title"><a href="{{ url_for('view_blog_entry', user_id=entry.user.id, blog_entry_id=entry.id) }}">{{ entry.title }}</a></h5>
+                    <p class="card-text"><small>Created Date: {{ entry.created_date.strftime('%m-%d-%Y at %H:%M:%S') }}</small>&nbsp;|&nbsp;
+                        <small>Author: <a href="{{ url_for('landing_page', user_id=entry.user.id) }}">{{ entry.user.user_alias }}</a></small>&nbsp;|&nbsp;
+                        <small>Private Entry: {{ entry.private_entry }}</small></p>
+                </div>
+                {% if entry.entry_img != 'blog_placeholder_img.jpg' %}
+                <img class="custom-card-img-top" src="{{ url_for('static', filename=('user_blog_imgs/' + entry.entry_img)) }}" class="card-img-top" alt="...">
+                {% endif %}
+                <div class="card-body">
+
+                    <p class="card-text">{{ entry.body }}</p>
+
+                </div>
+                <div class="card-footer d-flex flex-row bd-highlight">
+                    {% if not queries.chk_user_liked_entry(user_id=current_user.id, blog_entry_id=entry.id) %}
+                    <a href="{{ url_for('like_blog_entry', blog_entry_id=entry.id) }}" class="btn d-inline-block btn-outline-info like-style-btn ajax-like-btn"><i class="far fa-thumbs-up"></i> Like {{ entry.blog_entry_likes.count() }}</a>
+                    {% else %}
+                    <a href="{{ url_for('unlike_blog_entry', blog_entry_id=entry.id) }}" class="btn d-inline-block btn-outline-danger"><i class="far fa-thumbs-down"></i> Un-Like</a>
+                    <a href="{{ url_for('like_blog_entry', blog_entry_id=entry.id) }}" class="btn d-inline-block btn-outline-info ajax-like-btn disabled ml-2"><i class="far fa-thumbs-up"></i> Like {{ entry.blog_entry_likes.count() }}</a>
+                    {% endif %}
+
+                    {% if current_user.user_type == 'provider' and queries.chk_granted_privacy_access(grantor_id=found_user.id, grantee_id=current_user.id) %}
+                    <a class="btn btn-outline-info ml-2" href="{{ url_for('view_journal_entry_analysis', user_id=found_user.id, blog_entry_id=entry.id) }}">View Analysis</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+    {% endfor %}
+
+
+{% for current_page in user_blog.iter_pages(left_edge=3, left_current=3, right_current=4, right_edge=3): %}
+    {% if current_page %}
+        {% if current_page != user_blog.page %}
+            <a class="btn btn-outline-dark" href="{{ url_for('blog', user_id=found_user.id, current_page=current_page) }}">{{ current_page }}</a>
+        {% else %}
+            <a class="btn btn-outline-info" href="{{ url_for('blog', user_id=found_user.id, current_page=current_page) }}">{{ current_page }}</a>
+        {% endif %}
+    {% else %}
+        <i class="fas fa-ellipsis-h"></i>
+    {% endif %}
+{% endfor %}
+
+
+{% endblock template_body %}

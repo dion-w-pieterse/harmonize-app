@@ -1,0 +1,40 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Recommended Provider Association{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">{{ current_user.user_alias }} Recommended Provider Associations</h1>
+        <p class="lead">These are other recommended providers who you might be interested in getting to know.</p>
+        <hr class="my-4">
+        {% if current_user.user_type == 'patient' %}
+            <a class="btn btn-outline-dark" href="{{ url_for('patient_splashboard') }}">Return To Patient Splashboard</a>
+        {% elif current_user.user_type == 'provider' %}
+            <a class="btn btn-outline-dark" href="{{ url_for('provider_splashboard') }}">Return To Provider Splashboard</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<ul class="list-group">
+    {% for provider in provider_associations %}
+    <li class="list-group-item">
+        <div class="d-flex bd-highlight">
+            <div class="p-2 bd-highlight">
+                <h5>User Alias: <a href="{{url_for('blog', user_id=provider.id) }}">{{ provider.user_alias }}</a></h5>
+                <small>User Type: {{ provider.user_type }}</small>
+            </div>
+            <div class="p-2 ml-auto flex-shrink-1 bd-highlight">
+                <a href="{{ url_for('blog', user_id=provider.id)}}" class="btn btn-outline-secondary">View Provider Blog</a>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+

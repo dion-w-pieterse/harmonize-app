@@ -1,0 +1,217 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Provider Splashboard{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <h1 class="display-4">{{ current_user.user_alias }}'s Splashboard</h1>
+    <p class="lead">This is the main provider splashboard.</p>
+    <hr class="my-4">
+
+</div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<div class="row">
+    <h2 class="col-md-12 mb-4">General Data Services</h2>
+
+    <div class="col-md-4 mb-4">
+        <div class="card custom-splashboard-card">
+
+            <div class="card-body">
+                <h5 class="card-title">Journal &amp; Blog Feed of All Users I am Monitoring</h5>
+                <p class="card-text">Read your daily digest of entries from all monitored users.</p>
+                <a href="{{ url_for('monitored_user_entry_feed') }}" class="btn btn-outline-dark w-100">View All Users Feed</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title">Journal Feed of Patients I am Monitoring</h5>
+                <p class="card-text">Read your daily digest of journal entries from all monitored patients.</p>
+                <a href="{{ url_for('monitored_journal_entry_feed') }}" class="btn btn-outline-dark w-100">View Journal Feed</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title">List Users Where You Were Granted Privacy Access</h5>
+                <p class="card-text">Show a list of users who granted you privacy access.</p>
+                <a href="{{ url_for('list_private_access_user_journals') }}" class="btn btn-outline-dark w-100">List Users (Privacy Access)</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title">Journal &amp; Blog Feed Where I Was Granted Privacy Access</h5>
+                <p class="card-text">View journal and blog entries of users where I was granted privacy access.</p>
+                <a href="{{ url_for('get_grantor_private_access_user_journals') }}" class="btn btn-outline-dark w-100">View Privacy Granted Feed</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title">Manage Users I am Monitoring</h5>
+                <p class="card-text">View or edit your list of monitored users.</p>
+                <a href="{{ url_for('show_monitored_users') }}" class="btn btn-outline-dark w-100">Monitored User List</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title">Manage Private Access Users</h5>
+                <p class="card-text">Show users that I granted private access to.</p>
+                <a href="{{ url_for('show_granted_access_users') }}" class="btn btn-outline-dark w-100">Users I Granted Private Access</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title">Who Mentioned Me The Last Week?</h5>
+                <p class="card-text">View the most recent mentions within the last 7 days.</p>
+                <a href="{{ url_for('who_mentioned_me_lately') }}" class="btn btn-outline-dark w-100">View Who Mentioned Me</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Forum Conversations of Interest</h5>
+                <p class="card-text">See all conversations that relate to your chosen conditions.</p>
+                <a href="{{ url_for('forum_convos_of_interest') }}" class="btn btn-outline-dark w-100">View Conversations of Interest</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Recommended Patient Associations (Based on Conditions)</h5>
+                <p class="card-text">Explore patients who you may be interested in based on your chosen conditions.</p>
+                <a href="{{ url_for('recommend_patient_to_patient_associations') }}" class="btn btn-outline-dark w-100">View Associations</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Forum Response Feed of All Users I am Monitoring</h5>
+                <p class="card-text">View forum responses made by all users you have chosen to monitor.</p>
+                <a href="{{ url_for('monitored_user_response_feed') }}" class="btn btn-outline-dark w-100">View All User Response Feed</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Forum Response Feed of Patients I am Monitoring</h5>
+                <p class="card-text">View forum responses made by patients you have chosen to monitor.</p>
+                <a href="{{ url_for('monitored_patient_response_feed') }}" class="btn btn-outline-dark w-100">View Patient Response Feed</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card emergency-card-styling">
+            <div class="card-body">
+                <h5 class="card-title">Mental Health Crisis Emergency Services</h5>
+                <p class="card-text">View contact information for emergency services.</p>
+                <a href="{{ url_for('crisis_information') }}" class="btn btn-outline-light w-100">View Crisis Contact Info</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <h2 class="col-md-12 mb-4">Provider Data Services</h2>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Recommended Providers Associations (Based on Conditions)</h5>
+                <p class="card-text">Explre providers who you may be interested in based on your chosen conditions.</p>
+                <a href="{{ url_for('recommend_provider_associations') }}" class="btn btn-outline-dark w-100">View Providers</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Blog Feed of Providers I am Monitoring</h5>
+                <p class="card-text">Read your daily digest of blog entries from all monitored providers.</p>
+                <a href="{{ url_for('monitored_blog_entry_feed') }}" class="btn btn-outline-dark w-100">View Blog Entries</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Forum Response Feed of Providers I am Monitoring</h5>
+                <p class="card-text">View forum responses made by providers you have chosen to monitor.</p>
+                <a href="{{ url_for('monitored_provider_response_feed') }}" class="btn btn-outline-dark w-100">View Provider Response Feed</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Providers Who Worked As Out-Of-Network Specialists</h5>
+                <p class="card-text">View providers who have worked as out-of-network specialists for your chosen insurance company.</p>
+                <a href="{{ url_for('match_out_of_network_specialists') }}" class="btn btn-outline-dark w-100">View Providers</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Monitored Providers Being Mentioned In Journals Within the Last Week</h5>
+                <p class="card-text">View public journal entries that mention my monitored providers.</p>
+                <a href="{{ url_for('monitored_provider_journal_mentions') }}" class="btn btn-outline-dark w-100">View Journal Mentions</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Monitored Providers Being Mentioned In Forum Conversations Within the Last Week</h5>
+                <p class="card-text">View forum conversations that include responses that mention my monitored providers.</p>
+                <a href="{{ url_for('monitored_provider_forum_mentions') }}" class="btn btn-outline-dark w-100">View Conversations</a>
+            </div>
+        </div>
+    </div>
+
+</div><!-- end row -->
+
+{% endblock %}

@@ -1,0 +1,280 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Landing Page{% endblock template_title %}
+
+{% block template_cta %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-2">
+            <img class="img-responsive d-inline-block img-fluid mb-3 rounded-circle account-img-style" width="250" src="{{ url_for('static', filename=('user_account_imgs/' + found_user.account_img)) }}">
+        </div>
+        <div class="col-lg-10">
+            <h1 class="display-4 d-inline-block">Landing Page for: {{ found_user.user_alias }}</h1>
+            <p class="lead">This is where visitors can read more about the user.</p>
+        </div>
+    </div>
+    <hr class="my-4">
+
+    {% if found_user.user_type =='patient' and found_user.seeking_status==True %}
+    <div class="alert alert-success customized-alert-status-success d-inline-block" role="alert">
+        Looking For A Provider
+    </div>
+    {% elif found_user.user_type =='patient' and found_user.seeking_status==False %}
+    <div class="alert alert-danger customized-alert-status-danger d-inline-block" role="alert">
+        Not Looking For A Provider
+    </div>
+    {% elif found_user.user_type =='provider' and found_user.seeking_status==True %}
+    <div class="alert alert-success customized-alert-status-success d-inline-block" role="alert">
+        Accepting New Patients
+    </div>
+    {% elif found_user.user_type =='provider' and found_user.seeking_status==False %}
+    <div class="alert alert-danger customized-alert-status-danger d-inline-block" role="alert">
+        Not Accepting New Patients
+    </div>
+    {% endif %}
+
+    {% if found_user.user_type =='patient' and found_user.non_searchable==True %}
+    <div class="alert alert-danger customized-alert-status-danger d-inline-block" role="alert">
+        Journal is Non-Searchable
+    </div>
+    {% elif found_user.user_type =='patient' and found_user.non_searchable==False %}
+    <div class="alert alert-success customized-alert-status-success d-inline-block" role="alert">
+        Journal is Searchable
+    </div>
+    {% elif found_user.user_type =='provider' and found_user.non_searchable==True %}
+    <div class="alert alert-danger customized-alert-status-danger d-inline-block" role="alert">
+        Blog is Non-Searchable
+    </div>
+    {% elif found_user.user_type =='provider' and found_user.non_searchable==False %}
+    <div class="alert alert-success customized-alert-status-success d-inline-block" role="alert">
+        Blog is Searchable
+    </div>
+    {% endif %}
+
+    {% if current_user.is_authenticated and found_user.user_type == 'patient' and found_user.id != current_user.id %}
+    {% if not chk_if_monitoring_user %}
+    <a class="btn btn-outline-info" href="{{ url_for('monitor_patient', user_id=found_user.id) }}">Monitor This Patient</a>
+    {% else %}
+    <a class="btn btn-outline-info" href="{{ url_for('un_monitor', user_id=found_user.id) }}">Un-monitor This Patient</a>
+    {% endif %}
+    {% elif current_user.is_authenticated and found_user.user_type == 'provider' and found_user.id != current_user.id %}
+    {% if not chk_if_monitoring_user %}
+    <a class="btn btn-outline-info" href="{{ url_for('monitor_provider', user_id=found_user.id) }}">Monitor This Provider</a>
+    {% else %}
+    <a class="btn btn-outline-info" href="{{ url_for('un_monitor', user_id=found_user.id) }}">Un-monitor This Provider</a>
+    {% endif %}
+    {% endif %}
+
+    {% if current_user.is_authenticated and found_user.user_type == 'patient' and found_user.id != current_user.id %}
+    {% if not queries.chk_granted_privacy_access(grantor_id=current_user.id, grantee_id=found_user.id) %}
+    <a class="btn btn-outline-info" href="{{ url_for('grant_privacy_access', user_id=found_user.id) }}">Grant Patient Privacy Access</a>
+    {% else %}
+    <a class="btn btn-outline-danger" href="{{ url_for('remove_privacy_access', user_id=found_user.id) }}">Remove Patient Privacy Access</a>
+    {% endif %}
+    {% elif current_user.is_authenticated and found_user.user_type == 'provider' and found_user.id != current_user.id %}
+    {% if not queries.chk_granted_privacy_access(grantor_id=current_user.id, grantee_id=found_user.id) %}
+    <a class="btn btn-outline-info" href="{{ url_for('grant_privacy_access', user_id=found_user.id) }}">Grant Provider Privacy Access</a>
+    {% else %}
+    <a class="btn btn-outline-danger" href="{{ url_for('remove_privacy_access', user_id=found_user.id) }}">Remove Provider Privacy Access</a>
+    {% endif %}
+    {% endif %}
+
+    {% if current_user.is_authenticated and found_user.user_type == 'patient' %}
+    <a class="btn btn-outline-dark" href="{{ url_for('blog', user_id=found_user.id) }}">View {{ found_user.user_alias }}'s Journal</a>
+    {% elif current_user.is_authenticated and found_user.user_type == 'provider' %}
+    <a class="btn btn-outline-dark" href="{{ url_for('blog', user_id=found_user.id) }}">View {{ found_user.user_alias }}'s Blog</a>
+    {% endif %}
+</div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<h2 class="global_header_spacing"><span class="global_header_styling">Quick Stats</span></h2>
+
+<div class="row">
+    <div class="col-xl-3 col-sm-6 p-2">
+        <!-- Card #1: Personal Insurance -->
+        <div class="card landing-page-card-style">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <i class="fas fa-clinic-medical fa-2x"></i>
+                    <div class="text-left pl-3">
+                        <h5>Personal Insurance</h5>
+                        <p>{{ current_user.chosen_insurance }}</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- END -->
+    </div>
+
+    <div class="col-xl-3 col-sm-6 p-2">
+        <!-- Card #2: Conditions of Interest -->
+        <div class="card landing-page-card-style">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <i class="fas fa-list fa-2x"></i>
+                    <div class="text-left pl-3">
+                        <h5>Conditions of Interest</h5>
+                        <ul class="quick-stat-list">
+                            {% for condition in found_conditions %}
+                                <li>{{ condition.condition_name }}</li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END -->
+    </div>
+
+    <div class="col-xl-3 col-sm-6 p-2">
+        <!-- Card #3: Member Since -->
+        <div class="card landing-page-card-style">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <i class="fas fa-user fa-2x"></i>
+                    <div class="text-left pl-3">
+                        <h5>Member Since:</h5>
+                        <p>{{ current_user.created_date.strftime('%m-%d-%Y at %H:%M:%S') }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END -->
+    </div>
+
+    <div class="col-xl-3 col-sm-6 p-2">
+        <!-- Card #4: Last Login -->
+        <div class="card landing-page-card-style">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <i class="fas fa-sign-in-alt fa-2x"></i>
+                    <div class="text-left pl-3">
+                        <h5>Last Login:</h5>
+                        <p>{{ current_user.last_login.strftime('%m-%d-%Y at %H:%M:%S') }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END -->
+    </div>
+</div>
+
+
+<h2 class="global_header_spacing"><span class="global_header_styling">User Biography</span></h2>
+<p>{{ found_user.bio }}</p>
+
+<h2 class="global_header_spacing"><span class="global_header_styling">User Private Information</span></h2>
+
+{% if queries.chk_granted_privacy_access(grantor_id=found_user.id, grantee_id=current_user.id) or current_user.id == found_user.id %}
+
+<div class="row">
+    <div class="col-xl-3 col-sm-6 p-2">
+        <!-- Card #1: Personal Insurance -->
+        <div class="card landing-page-private-card-style">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <i class="fas fa-user-tag fa-2x"></i>
+                    <div class="text-left pl-3">
+                        <h5>User Alias</h5>
+                        <p>{{ found_user.user_alias }}</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- END -->
+    </div>
+
+    <div class="col-xl-3 col-sm-6 p-2">
+        <!-- Card #2: Conditions of Interest -->
+        <div class="card landing-page-private-card-style">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <i class="fas fa-envelope-open-text fa-2x"></i>
+                    <div class="text-left pl-3">
+                        <h5>Email</h5>
+                        <p>{{ found_user.email }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END -->
+    </div>
+
+    <div class="col-xl-3 col-sm-6 p-2">
+        <!-- Card #3: Member Since -->
+        <div class="card landing-page-private-card-style">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <i class="fas fa-user fa-2x"></i>
+                    <div class="text-left pl-3">
+                        <h5>Full Name</h5>
+                        <p>{{ found_user.first_name }} {{ found_user.last_name }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END -->
+    </div>
+
+    <div class="col-xl-3 col-sm-6 p-2">
+        <!-- Card #4: Last Login -->
+        <div class="card landing-page-private-card-style">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <i class="far fa-address-card fa-2x"></i>
+                    <div class="text-left pl-3">
+                        <h5>Address</h5>
+                        <p>{{ found_user.addr_street }}<br>{{ found_user.addr_city }}, {{ found_user.addr_state }} {{ found_user.addr_zip }}<br>{{ found_user.addr_country }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END -->
+    </div>
+
+    <div class="col-xl-3 col-sm-6 p-2">
+        <!-- Card #5: Phone Number -->
+        <div class="card landing-page-private-card-style">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <i class="fas fa-phone-alt fa-2x"></i>
+                    <div class="text-left pl-3">
+                        <h5>Phone Number</h5>
+                        <p>{{ found_user.ph_number }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END -->
+    </div>
+</div>
+
+{% else %}
+    <p class="text-danger">You must have privacy access to view this information.</p>
+{% endif %}
+
+
+<!-- CARDS EXPERIMENT -->
+<!-- cards -->
+
+
+
+
+{% endblock template_body %}

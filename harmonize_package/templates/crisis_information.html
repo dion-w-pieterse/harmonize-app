@@ -1,0 +1,102 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Crisis Information Page{% endblock template_title %}
+
+{% block template_cta %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Crisis Information</h1>
+        <p class="lead">These are emergency services numbers in case of a mental health crisis.</p>
+        <hr class="my-4">
+        {% if current_user.user_type == 'patient' %}
+        <a class="btn btn-outline-dark" href="{{ url_for('patient_splashboard') }}">Return To Patient Splashboard</a>
+        {% elif current_user.user_type == 'provider' %}
+        <a class="btn btn-outline-dark" href="{{ url_for('provider_splashboard') }}">Return To Provider Splashboard</a>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<h2 class="global_header_spacing"><span class="global_header_styling">Suicide Hotlines</span></h2>
+
+<div class="row">
+    <div class="col-xl-3 col-sm-6 p-2">
+        <!-- Card #1: Personal Insurance -->
+        <div class="card crisis-card-style">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <i class="fas fa-phone-alt fa-2x"></i>
+                    <div class="text-left pl-3">
+                        <h5>National Suicide Prevention Lifeline (NSPL)</h5>
+                        <p>1-800-273-8255</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- END -->
+    </div>
+
+    <div class="col-xl-3 col-sm-6 p-2">
+        <!-- Card #2: Conditions of Interest -->
+        <div class="card crisis-card-style">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <i class="fas fa-phone-alt fa-2x"></i>
+                    <div class="text-left pl-3">
+                        <h5>NSPL Spanish</h5>
+                        <p>1-888-628-9454</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END -->
+    </div>
+
+    <div class="col-xl-3 col-sm-6 p-2">
+        <!-- Card #3: Member Since -->
+        <div class="card crisis-card-style">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <i class="fas fa-phone-alt fa-2x"></i>
+                    <div class="text-left pl-3">
+                        <h5>NSPL Vereran Crisis</h5>
+                        <p>1-800-273-8255</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END -->
+    </div>
+
+    <div class="col-xl-3 col-sm-6 p-2">
+        <!-- Card #4: Last Login -->
+        <div class="card crisis-card-style">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <i class="fas fa-sign-in-alt fa-2x"></i>
+                    <div class="text-left pl-3">
+                        <h5>National Suicide Prevention Lifeline (NSPL) Website</h5>
+                        <a href="https://suicidepreventionlifeline.org/">Visit NSPL Site</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END -->
+    </div>
+</div>
+<!-- CARDS EXPERIMENT -->
+<!-- cards -->
+
+
+
+
+{% endblock template_body %}

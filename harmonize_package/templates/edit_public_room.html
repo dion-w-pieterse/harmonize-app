@@ -1,0 +1,62 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Edit Public Room{% endblock template_title %}
+
+{% block template_cta %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    {% if current_user.user_type == 'patient' %}
+    <h1 class="display-4">Edit a Public Forum Room</h1>
+    <p class="lead">Please make the changes to your public room that you created.</p>
+    {% elif current_user.user_type == 'provider' %}
+    <h1 class="display-4">Edit a Public Forum Room</h1>
+    <p class="lead">Please make the changes to your public room that you created.</p>
+    {% endif %}
+    <hr class="my-4">
+    <a href="{{ url_for('room_view', room_id=room_id) }}" class="btn btn-outline-dark">Return to Room: {{found_room.room_name }}</a>
+</div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+{% if public_room_form and current_user.is_authenticated %}
+<form action="{{ url_for('room_edit', room_id=room_id) }}" method="POST">
+    {{ public_room_form.hidden_tag() }}
+
+    <div class="form-group">
+        {{ public_room_form.room_name.label(class="form-control-label") }}
+        {% if public_room_form.room_name.errors %}
+        {{ public_room_form.room_name(required=False, class="is-invalid form-control", cols=32, rows=1) }}
+        <div class="invalid-feedback">
+            {% for error in public_room_form.room_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ public_room_form.room_name(required=False, class="form-control", cols=32, rows=1) }}
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ public_room_form.room_summary.label(class="form-control-label") }}
+        {% if public_room_form.room_summary.errors %}
+        {{ public_room_form.room_summary(required=False, class="is-invalid form-control", cols=32, rows=1) }}
+        <div class="invalid-feedback">
+            {% for error in public_room_form.room_summary.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ public_room_form.room_summary(required=False, class="form-control", cols=32, rows=1) }}
+        {% endif %}
+    </div>
+
+    <p>{{ public_room_form.submit( class="btn btn-outline-dark") }}</p>
+</form>
+
+{% endif %}
+
+
+{% endblock template_body %}

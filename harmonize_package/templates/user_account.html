@@ -1,0 +1,326 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}User Account{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Edit Account:</h1>
+        <p class="lead">Please edit your user account information. For every edit, you must always enter your email and valid password in order to update your account information.</p>
+        <hr class="my-4">
+    </div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<div class="content-section">
+    <form method="POST" action="{{ url_for('user_account', user_id=current_user.id) }}" enctype="multipart/form-data">
+
+        {{ acct_edit_form.hidden_tag() }}
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-3">Email</legend>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ acct_edit_form.email.label(class="form-control-label") }}
+                    {% if acct_edit_form.email.errors %}
+                    {{ acct_edit_form.email(required=False, class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in acct_edit_form.email.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ acct_edit_form.email(required=False, class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group col-md-6">
+                    {{ acct_edit_form.confirm_email.label(class="form-control-label") }}
+                    {% if acct_edit_form.confirm_email.errors %}
+                    {{ acct_edit_form.confirm_email(required=False, class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in acct_edit_form.confirm_email.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ acct_edit_form.confirm_email(required=False, class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </div>
+        </fieldset>
+
+
+
+            <div class="form-group">
+                {{ acct_edit_form.user_alias.label(class="form-control-label") }}
+
+                {% if acct_edit_form.user_alias.errors %}
+                {{ acct_edit_form.user_alias(required=False, class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in acct_edit_form.user_alias.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ acct_edit_form.user_alias(required=False, class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-3">Password</legend>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ acct_edit_form.password.label(class="form-control-label") }}
+                    {% if acct_edit_form.password.errors %}
+                    {{ acct_edit_form.password(required=False, class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in acct_edit_form.password.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ acct_edit_form.password(required=False, class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group col-md-6">
+                    {{ acct_edit_form.confirm_password.label(class="form-control-label") }}
+
+                    {% if acct_edit_form.confirm_password.errors %}
+                    {{ acct_edit_form.confirm_password(required=False, class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in acct_edit_form.confirm_password.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ acct_edit_form.confirm_password(required=False, class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </div>
+        </fieldset>
+
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-3">First &amp; Last Name</legend>
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    {{ acct_edit_form.first_name.label(class="form-control-label") }}
+
+                    {% if acct_edit_form.first_name.errors %}
+                    {{ acct_edit_form.first_name(required=False, class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in acct_edit_form.first_name.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ acct_edit_form.first_name(required=False, class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group col-md-6">
+                    {{ acct_edit_form.last_name.label(class="form-control-label") }}
+
+                    {% if acct_edit_form.last_name.errors %}
+                    {{ acct_edit_form.last_name(required=False, class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in acct_edit_form.last_name.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ acct_edit_form.last_name(required=False, class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-3">Address</legend>
+
+
+            <div class="form-group">
+                {{ acct_edit_form.addr_street.label(class="form-control-label") }}
+
+                {% if acct_edit_form.addr_street.errors %}
+                {{ acct_edit_form.addr_street(required=False, class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in acct_edit_form.addr_street.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ acct_edit_form.addr_street(required=False, class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-4">
+                    {{ acct_edit_form.addr_city.label(class="form-control-label") }}
+
+                    {% if acct_edit_form.addr_city.errors %}
+                    {{ acct_edit_form.addr_city(required=False, class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in acct_edit_form.addr_city.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ acct_edit_form.addr_city(required=False, class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group col-md-2">
+                    {{ acct_edit_form.addr_state.label(class="form-control-label") }}
+
+                    {% if acct_edit_form.addr_state.errors %}
+                    {{ acct_edit_form.addr_state(required=False, class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in acct_edit_form.addr_state.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ acct_edit_form.addr_state(required=False, class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group col-md-2">
+                    {{ acct_edit_form.addr_zip.label(class="form-control-label") }}
+
+                    {% if acct_edit_form.addr_zip.errors %}
+                    {{ acct_edit_form.addr_zip(required=False, class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in acct_edit_form.addr_zip.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ acct_edit_form.addr_zip(required=False, class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group col-md-4">
+                    {{ acct_edit_form.addr_country.label(class="form-control-label") }}
+
+                    {% if acct_edit_form.addr_country.errors %}
+                    {{ acct_edit_form.addr_country(required=False, class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in acct_edit_form.addr_country.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ acct_edit_form.addr_country(required=False, class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </div>
+        </fieldset>
+
+
+            <div class="form-group">
+                {{ acct_edit_form.ph_number.label(class="form-control-label") }}
+
+                {% if acct_edit_form.ph_number.errors %}
+                {{ acct_edit_form.ph_number(required=False, class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in acct_edit_form.ph_number.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ acct_edit_form.ph_number(required=False, class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+
+
+            <div class="form-group">
+                {{ acct_edit_form.account_img.label(class="form-control-label") }}
+
+                {% if acct_edit_form.account_img.errors %}
+                {{ acct_edit_form.account_img(required=False, class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in acct_edit_form.account_img.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ acct_edit_form.account_img(required=False, class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <div class="form-check">
+                {{ acct_edit_form.seeking_status(class="form-check-input") }}
+                {{ acct_edit_form.seeking_status.label(class="form-check-label") }}
+            </div>
+
+            <div class="form-check">
+                {{ acct_edit_form.non_searchable(class="form-check-input") }}
+                {{ acct_edit_form.non_searchable.label(class="form-check-label") }}
+            </div>
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-3">Conditions &amp; Insurance Provider</legend>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ acct_edit_form.chosen_conditions.label(class="form-control-label") }}
+
+                    {% if acct_edit_form.chosen_conditions.errors %}
+                    {{ acct_edit_form.chosen_conditions(required=False, class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in acct_edit_form.chosen_conditions.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ acct_edit_form.chosen_conditions(required=False, class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group col-md-6">
+                    {{ acct_edit_form.chosen_insurance.label(class="form-control-label") }}
+
+                    {% if acct_edit_form.chosen_insurance.errors %}
+                    {{ acct_edit_form.chosen_insurance(required=False, class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in acct_edit_form.chosen_insurance.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ acct_edit_form.chosen_insurance(required=False, class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+            </div>
+        </fieldset>
+
+            <div class="form-group">
+                {{ acct_edit_form.bio.label(class="form-control-label") }}
+
+                {% if acct_edit_form.bio.errors %}
+                {{ acct_edit_form.bio(required=False, class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in acct_edit_form.bio.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ acct_edit_form.bio(required=False, class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+        <div class="form-group">
+            {{ acct_edit_form.submit(class="btn btn-outline-dark") }}
+        </div>
+    </form>
+</div>
+
+{% endblock template_body %}

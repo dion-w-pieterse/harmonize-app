@@ -1,0 +1,90 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Edit Public Conversation{% endblock template_title %}
+
+{% block template_cta %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    {% if current_user.user_type == 'patient' %}
+    <h1 class="display-4">Edit a Public Conversation</h1>
+    <p class="lead">Please make the changes to your public conversation.</p>
+    {% elif current_user.user_type == 'provider' %}
+    <h1 class="display-4">Edit a Public Conversation</h1>
+    <p class="lead">Please make the changes to your public conversation.</p>
+    {% endif %}
+    <hr class="my-4">
+    <a href="{{ url_for('convo_view', room_id=found_room.id, convo_id=found_convo.id) }}" class="btn btn-outline-dark">Return to Conversation: {{found_convo.convo_name }}</a>
+</div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+{% if edit_public_convo_form and current_user.is_authenticated %}
+<form action="{{ url_for('convo_edit', room_id=found_room.id, convo_id=found_convo.id) }}" method="POST">
+    {{ edit_public_convo_form.hidden_tag() }}
+
+    <div class="form-group">
+        {{ edit_public_convo_form.convo_name.label(class="form-control-label") }}
+        {% if edit_public_convo_form.convo_name.errors %}
+            {{ edit_public_convo_form.convo_name(required=False, class="is-invalid form-control", cols=32, rows=1) }}
+            <div class="invalid-feedback">
+                {% for error in edit_public_convo_form.convo_name.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ edit_public_convo_form.convo_name(required=False, class="form-control", cols=32, rows=1) }}
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ edit_public_convo_form.convo_summary.label(class="form-control-label") }}
+        {% if edit_public_convo_form.convo_summary.errors %}
+            {{ edit_public_convo_form.convo_summary(required=False, class="is-invalid form-control", cols=32, rows=1) }}
+            <div class="invalid-feedback">
+                {% for error in edit_public_convo_form.convo_summary.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ edit_public_convo_form.convo_summary(required=False, class="form-control", cols=32, rows=1) }}
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ edit_public_convo_form.convo_init_body.label(class="form-control-label") }}
+        {% if edit_public_convo_form.convo_init_body.errors %}
+        {{ edit_public_convo_form.convo_init_body(required=False, class="is-invalid form-control", cols=32, rows=1) }}
+        <div class="invalid-feedback">
+            {% for error in edit_public_convo_form.convo_init_body.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ edit_public_convo_form.convo_init_body(required=False, class="form-control", cols=32, rows=1) }}
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ edit_public_convo_form.chosen_conditions.label(class="form-control-label") }}
+
+        {% if edit_public_convo_form.chosen_conditions.errors %}
+        {{ edit_public_convo_form.chosen_conditions(required=False, class="form-control form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+            {% for error in edit_public_convo_form.chosen_conditions.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ edit_public_convo_form.chosen_conditions(required=False, class="form-control form-control-lg") }}
+        {% endif %}
+    </div>
+
+    <p>{{ edit_public_convo_form.submit( class="btn btn-outline-dark") }}</p>
+</form>
+
+{% endif %}
+
+{% endblock template_body %}

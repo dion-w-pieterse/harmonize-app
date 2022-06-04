@@ -1,0 +1,90 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Public Conversation{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <h1 class="display-4">Conversation: {{ found_convo.convo_name }}</h1>
+        <p class="lead">Summary: {{ found_convo.convo_summary }}</p>
+        <p><small>Created Date: {{ found_convo.created_date.strftime('%m-%d-%Y at %H:%M:%S') }}</small>&nbsp;|&nbsp;
+            <small>Author: <a href="{{ url_for('blog', user_id=found_room.user.id) }}">{{ found_convo.user.user_alias }}</a></small>&nbsp;|&nbsp;
+            <small>Private Conversation: {{ found_convo.private_conversation }}</small>
+        </p>
+    <p>Conversation Related to Condition(s):
+        {% for condition in found_convo.convo_chosen_conditions %}
+            <span class="badge badge-primary">{{ condition.condition_name }}</span>
+        {% endfor %}
+    </p>
+
+    <hr class="my-4">
+
+    <a href="{{ url_for('forum_rooms') }}" class="btn btn-outline-dark mt-2">Return to Public Forum Rooms</a>
+    <a href="{{ url_for('room_view', room_id=found_room.id) }}" class="btn btn-outline-dark mt-2">Return to Room: {{ found_room.room_name }}</a>
+        {% if current_user.id == found_convo.user_id %}
+        <a href="{{ url_for('convo_edit', room_id=found_room.id, convo_id=found_convo.id) }}" class="btn btn-warning mt-2">Edit</a>
+        <a href="{{ url_for('convo_remove', room_id=found_room.id, convo_id=found_convo.id) }}" class="btn btn-danger mt-2">Destroy Conversation and All Responses</a>
+        {% endif %}
+    <a href="{{ url_for('response_write', room_id=found_room.id, convo_id=found_convo.id) }}" class="btn btn-outline-info mt-2">Write a Response</a>
+</div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<div class="convo-initiator-body text-white">
+    <h3>Conversation Initiator Body:</h3>
+    <p class="initial-body-text">{{ found_convo.convo_init_body }}</p>
+</div>
+
+{% for response in responses.items %}
+    <div class="card w-100 mb-4">
+        <div class="card-header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Room: <a href="{{ url_for('room_view', room_id=response.conversation.forum_room.id) }}">{{ response.conversation.forum_room.room_name }}</a></li>
+                    <li class="breadcrumb-item">Convo: <a href="{{ url_for('convo_view', room_id=response.conversation.forum_room.id, convo_id=response.conversation.id) }}">{{ response.conversation.convo_name }}</a></li>
+                    <li class="breadcrumb-item">Response ID: {{ response.id }}</li>
+                </ol>
+            </nav>
+            <p class="card-text"><small>Created Date: {{ response.created_date.strftime('%m-%d-%Y at %H:%M:%S') }}</small>&nbsp;|&nbsp;
+                <small>Author: <a href="{{ url_for('landing_page', user_id=response.user_id) }}">{{ response.user.user_alias }}</a></small>&nbsp;|&nbsp;
+                <small>Private Response: {{ response.private_response }}</small></p>
+        </div>
+        {% if response.resp_img != 'resp_placeholder_img.jpg' %}
+        <img class="custom-card-img-top" src="{{ url_for('static', filename=('user_forum_imgs/' + response.resp_img)) }}" class="card-img-top" alt="...">
+        {% endif %}
+        <div class="card-body">
+
+            <p class="card-text">{{ response.body }}</p>
+
+        </div>
+        <div class="card-footer d-flex flex-row bd-highlight">
+            {% if not queries.chk_user_liked_response(user_id=current_user.id, convo_response_id=response.id) %}
+            <a href="{{ url_for('like_forum_response', convo_response_id=response.id) }}" class="btn d-inline-block btn-outline-info like-style-btn ajax-like-btn"><i class="far fa-thumbs-up"></i> Like(s) {{ response.convo_response_likes.count() }}</a>
+            {% else %}
+            <a href="{{ url_for('unlike_forum_response', convo_response_id=response.id) }}" class="btn d-inline-block btn-outline-danger"><i class="far fa-thumbs-down"></i> Un-Like</a>
+            <a href="{{ url_for('like_forum_response', convo_response_id=response.id) }}" class="btn d-inline-block btn-outline-info disabled ml-2"><i class="far fa-thumbs-up"></i> {{ response.convo_response_likes.count() }}</a>
+            {% endif %}
+            {% if current_user.id == response.user_id %}
+                <a href="{{ url_for('response_edit', room_id=found_room.id, convo_id=found_convo.id, resp_id=response.id) }}" class="btn btn-warning ml-2">Edit</a>
+                <a href="{{ url_for('response_remove', room_id=found_room.id, convo_id=found_convo.id, resp_id=response.id) }}" class="btn btn-danger ml-2">Remove</a>
+            {% endif %}
+        </div>
+    </div>
+
+{% endfor %}
+
+{% for current_page in responses.iter_pages(left_edge=3, left_current=3, right_current=4, right_edge=3): %}
+    {% if current_page %}
+        {% if current_page != responses.page %}
+            <a class="btn btn-outline-dark" href="{{ url_for('convo_view', room_id=found_room.id, convo_id=found_convo.id, current_page=current_page) }}">{{ current_page }}</a>
+        {% else %}
+            <a class="btn btn-outline-info" href="{{ url_for('convo_view', room_id=found_room.id,convo_id=found_convo.id, current_page=current_page) }}">{{ current_page }}</a>
+        {% endif %}
+    {% else %}
+        <i class="fas fa-ellipsis-h"></i>
+    {% endif %}
+{% endfor %}
+
+{% endblock template_body %}

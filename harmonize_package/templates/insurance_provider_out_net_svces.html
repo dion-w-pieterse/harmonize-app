@@ -1,0 +1,50 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Provider Services Provided to Insurance In-Network Facilities as Out-of_Network Specialists{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Worked In In-Network Facilities as Out-of-Network Specialist:</h1>
+        <p class="lead">Provider Services Provided to Insurance In-Network Facilities as Out-of-Network Specialist.</p>
+        <hr class="my-4">
+        <p>Provider Services Provided to Insurance In-Network Facilities as Out-of-Network Specialist.</p>
+    </div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<div class="content-section">
+    <form method="POST" action="{{ url_for('insurance_provider_out_net_svces') }}">
+
+        {{ out_net_svces_form.hidden_tag() }}
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-3">Choose Insurance Companies You Worked For As Out-of-Network Specialist</legend>
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    {{ out_net_svces_form.insurance_name.label(class="form-control-label") }}
+
+                    {% if out_net_svces_form.insurance_name.errors %}
+                    {{ out_net_svces_form.insurance_name(required=False, class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in out_net_svces_form.insurance_name.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ out_net_svces_form.insurance_name(required=False, class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group">
+            {{ out_net_svces_form.submit(class="btn btn-outline-dark") }}
+        </div>
+    </form>
+</div>
+
+{% endblock template_body %}

@@ -1,0 +1,39 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}User Blog Entry{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Individual Blog Entry</h1>
+        <p></p>
+        <p class="lead">This page shows the individual blog entry.</p>
+        <hr class="my-4">
+
+    </div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<div class="card w-100">
+    <div class="card-header">
+        <h5 class="card-title">{{ blog_entry.title }}</h5>
+        <p class="card-text"><small>Created Date: {{ blog_entry.created_date }}</small>&nbsp;|&nbsp;<small>Author: <a href="{{ url_for('landing_page', user_id=blog_entry.user.id) }}">{{ blog_entry.user.user_alias }}</a></small>&nbsp;|&nbsp;
+        <small>Private Entry: {{ blog_entry.private_entry }}</small></p>
+    </div>
+    {% if blog_entry.entry_img != 'blog_placeholder_img.jpg' %}
+        <img class="custom-card-img-top" src="{{ url_for('static', filename=('user_blog_imgs/' + blog_entry.entry_img)) }}" class="card-img-top" alt="Blog Entry Image">
+    {% endif %}
+    <div class="card-body">
+        <p class="card-text">{{ blog_entry.body }}</p>
+
+        <a href="{{ url_for('blog', user_id=blog_entry.user.id) }}" class="btn btn-outline-dark">Return to {{ blog_entry.user.user_alias }} Blog</a>
+        {% if current_user.id == blog_entry.user.id %}
+        <a href="{{ url_for('edit_blog_entry', user_id=blog_entry.user.id, blog_entry_id=blog_entry.id) }}" class="btn btn-warning">Edit</a>
+        <a href="{{ url_for('remove_blog_entry', user_id=blog_entry.user.id, blog_entry_id=blog_entry.id) }}" class="btn btn-danger">Remove</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock template_body %}

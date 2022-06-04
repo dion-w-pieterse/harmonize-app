@@ -1,0 +1,46 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Monitored Provider Journal Mentions{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Monitored Provider Journal Mentions</h1>
+        <p class="lead">This is a list (within the last week) of all journal entries that mention any providers that I am currently monitoring.</p>
+        <hr class="my-4">
+        {% if current_user.user_type == 'patient' %}
+            <a class="btn btn-outline-dark" href="{{ url_for('patient_splashboard') }}">Return To Patient Splashboard</a>
+        {% elif current_user.user_type == 'provider' %}
+            <a class="btn btn-outline-dark" href="{{ url_for('provider_splashboard') }}">Return To Provider Splashboard</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<ul class="list-group">
+    {% for user in monitored_mentions %}
+    <li class="list-group-item">
+        <div class="d-flex bd-highlight">
+            <div class="p-2 bd-highlight">
+                <h5>User Alias: <a href="{{url_for('blog', user_id=user.id) }}">{{ user.user_alias }}</a></h5>
+                <small>User Type: {{ user.user_type }}</small>
+            </div>
+            <div class="p-2 ml-auto flex-shrink-1 bd-highlight">
+                <a href="{{ url_for('landing_page', user_id=user.id)}}" class="btn btn-outline-secondary">View Landing Page</a>
+            </div>
+            <div class="p-2 ml-auto flex-shrink-1 bd-highlight">
+                <a href="{{ url_for('view_blog_entry', user_id=user.id, blog_entry_id=user.blog_entry_id)}}" class="btn btn-outline-secondary">View Exact Entry</a>
+            </div>
+            <div class="p-2 ml-auto flex-shrink-1 bd-highlight">
+                <a href="{{ url_for('blog', user_id=user.id)}}" class="btn btn-outline-secondary">Visit User's Blog</a>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+

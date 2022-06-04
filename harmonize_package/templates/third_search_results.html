@@ -1,0 +1,50 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Third Search Results{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <h1 class="display-4">Third Search Results:</h1>
+    <p class="lead">This is the DBMS Full-Text Search Results Page.</p>
+    <hr class="my-4">
+    <p>Below are all the results returned from the search query</p>
+</div>
+</div>
+{% endblock template_cta %}
+
+
+{% block template_body %}
+
+{% for result in results.items %}
+
+<div class="card mb-4">
+    <div class="card-header">
+        <a href="#">{{ result.user.user_alias }}</a> Date: {{ result.timestamp }}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Title: {{ result.title }} </h5>
+        <p class="card-text">{{ result.body }}</p>
+    </div>
+</div>
+
+{% endfor %}
+
+<nav aria-label="...">
+    <ul class="pager">
+        <li class="previous{% if not prev_url %} disabled{% endif %}">
+            <a href="{{ prev_url or '#' }}">
+                <span aria-hidden="true">&larr;</span> {{ 'Previous results' }}
+            </a>
+        </li>
+        <li class="next{% if not next_url %} disabled{% endif %}">
+            <a href="{{ next_url or '#' }}">
+                {{ 'Next results' }} <span aria-hidden="true">&rarr;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+
+{% endblock %}

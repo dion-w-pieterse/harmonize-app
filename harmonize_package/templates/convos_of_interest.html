@@ -1,0 +1,47 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Conversations of Interest{% endblock template_title %}
+
+{% block template_cta %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Conversation(s) of Interest</h1>
+        <hr class="my-4">
+        <a href="{{ url_for('forum_rooms') }}" class="btn btn-outline-dark">Return to Public Forum Rooms</a>
+        {% if current_user.user_type == 'patient' %}
+        <a class="btn btn-outline-dark" href="{{ url_for('patient_splashboard') }}">Return To Patient Splashboard</a>
+        {% elif current_user.user_type == 'provider' %}
+        <a class="btn btn-outline-dark" href="{{ url_for('provider_splashboard') }}">Return To Provider Splashboard</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+{% for convo in convos_of_interest %}
+    <div class="card w-100 mb-4">
+        <div class="card-header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Room: <a href="{{ url_for('forum_rooms', room_id=convo.forum_room_id) }}">{{convo.room_name}}</a></li>
+                    <li class="breadcrumb-item">Convo: <a href="{{ url_for('convo_view', room_id=convo.forum_room_id, convo_id=convo.id) }}">{{convo.convo_name}}</a></li>
+                </ol>
+            </nav>
+            <p class="card-text"><small>Created Date: {{ convo.created_date.strftime('%m-%d-%Y at %H:%M:%S') }}</small>&nbsp;|&nbsp;
+                <small>Author: <a href="{{ url_for('landing_page', user_id=convo.user_id) }}">{{ convo.user_alias }}</a></small>&nbsp;|&nbsp;
+                <small>Private Conversation: {{ convo.private_conversation }}</small>
+            </p>
+        </div>
+        <div class="card-body">
+            
+            <p class="card-text"><b>Summary:</b> {{ convo.convo_summary }}</p>
+            <p class="card-text"><b>Initiator Body:</b> {{ convo.convo_init_body }}</p>
+
+
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock template_body %}

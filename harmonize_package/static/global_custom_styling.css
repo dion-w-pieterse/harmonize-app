@@ -1,0 +1,609 @@
+/***************************
+*** Style Flash Messages ***
+ **************************/
+
+.alert {
+    border-radius: 0rem;
+    margin-bottom: 0rem;
+}
+
+.alert-message {
+    color: #383d41 !important;
+    background-color: #e2e3e5 !important;
+    /*border-color: #d6d8db !important;*/
+    border-color: #00182c;
+}
+
+.alert-error {
+    color: #721c24 !important;
+    background-color: #f8d7da !important;
+    border-color: #f5c6cb !important;
+}
+
+.alert-info {
+    color: #0c5460 !important;
+    background-color: #d1ecf1 !important;
+    border-color: #bee5eb !important;
+}
+
+.alert-warning {
+    color: #856404 !important;
+    background-color: #fff3cd !important;
+    border-color: #ffeeba !important;
+}
+
+
+/***************************
+*** Style Flash Messages ***
+ **************************/
+
+
+
+/**********************************
+*** General ***
+ *********************************/
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Archivo', sans-serif;
+}
+
+.global_header_styling {
+    border-bottom: 2px solid #00182c;
+}
+
+.global_header_spacing {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+html {
+    background-color: #00182c;
+}
+
+body {
+    margin-top: 88px !important;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px !important;
+    color: #00182c !important;
+}
+
+
+/**********************************
+*** Navigation ***
+ *********************************/
+
+.logo-custom-styling {
+    vertical-align:middle !important;
+    width:67px !important;
+    height:50px !important;
+}
+
+span.logo_name {
+    font-family: 'Archivo', sans-serif;
+    font-weight:100;
+}
+
+nav.navbar {
+    border-bottom: 4px solid #4ec3c7 !important;
+    background: #00182c !important;
+}
+
+.navbar-brand {
+    font-size: 1.6rem;
+    color: #fff !important;
+}
+
+.navbar-brand:hover {
+    color: #4ec3c7 !important;
+}
+
+.nav-link {
+    color: #fff !important;
+    margin-right: 1.5rem !important;
+}
+
+.nav-link:hover {
+    color: #4ec3c7 !important;
+}
+
+/* Styling for Animating the Navbar Hamburger */
+
+.top-bar, .middle-bar, .bottom-bar {
+    transition: all .3s;
+    margin: 6px;
+    height: 2px;
+    width: 30px;
+}
+
+.morph-hamburger .top-bar {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.morph-hamburger .middle-bar {
+    opacity: 0;
+}
+
+.morph-hamburger .bottom-bar {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+div.dropdown-menu {
+    background: #00182c !important;
+    border:2px solid #4ec3c7;
+    box-shadow: 1px 2px 5px #00182c;
+    border-radius: 0;
+}
+
+div.dropdown-divider {
+    border: 1px solid #4ec3c7 !important;
+}
+
+a.dropdown-item:link {
+    color: #fff !important;
+}
+
+a.dropdown-item:visited {
+    color: #fff !important;
+}
+
+a.dropdown-item:hover {
+    background-color: #4ec3c7;
+    color: #00182c !important;
+}
+
+a.dropdown-item:focus {
+    color: #fff !important;
+}
+
+a.dropdown-item:active {
+    color: #fff !important;
+}
+
+/* Style Search Bar */
+nav form input#search {
+    border:none;
+    border-bottom: 1px solid #4ec3c7 !important;
+    border-radius:0;
+    background: transparent;
+    border-bottom: 1px solid #4ec3c7;
+    color: #fff;
+}
+
+nav form input#search:focus {
+    box-shadow: none;
+    background: transparent;
+    border-bottom: 1px solid #4ec3c7;
+}
+
+.nav-custom-search-button {
+    border-radius: 0;
+}
+
+.nav-custom-search-button:hover {
+    border-radius: 0;
+}
+
+nav form input#search::placeholder { /* Everything except MS Browsers */
+    opacity: 1; /* Firefox */
+    color: #fff;
+
+}
+
+nav form input#search::-ms-input-placeholder { /* MS Edge */
+    color: #fff;
+}
+
+nav form input#search:-ms-input-placeholder { /* IE 10-11 */
+    color: #fff;
+}
+
+/**********************************
+*** Jumbotron CTA Styling *** ( Darker to lighter: #4ec3c7 -> #64CBCE -> #73D0D3 -> #83D5D8 -> #92DADD -> #A2E0E2 -> B1E5E7 -> C1EAEB -> D0EFF0)
+ *********************************/
+
+div.jumbotron {
+    /*background-color: #E0F5F5;*/
+    /*background-color: rgba(224, 245, 245, .85);*/
+    /*background: linear-gradient(rgba(224, 245, 245, 1.0), rgba(255, 255, 255, 1.0));*/
+    /*background: linear-gradient(rgba(131, 213, 216, 0.7), rgba(255, 255, 255, 1.0));*/
+    background: linear-gradient(#B1E5E7, #fff);
+    padding: 4rem 2rem 2rem 2rem;
+}
+
+div.jumbotron h1, div.jumbotron p {
+    color: #00182c !important;
+}
+
+div.jumbotron hr {
+    border: 1px solid rgba(0, 24, 44, 0.1) !important;
+}
+
+/**********************************
+*** Sentiment Analysis Blog Section Styling
+**********************************/
+small.score-indicator-desc {
+    color: #636363;
+}
+
+/**********************************
+*** Styling for Home Page
+**********************************/
+
+div.cta-img {
+    background-image: url('cta-bg-photo-35-tint.jpg');
+    min-height: 100vh;
+    background-size: cover;
+    background-attachment:fixed;
+    background-position:center;
+}
+
+h1.cta-header-style {
+    color: #fff;
+    font-weight: 100 !important;
+    font-size: 5rem;
+}
+
+
+h1.cta-header-style-auth {
+    color: #fff;
+    /*padding: 10rem 5rem 0rem 5rem;*/
+    font-weight: 500 !important;
+    font-size: 3rem;
+}
+
+h1 span.cta-header-border {
+    /*display:inline-block;*/
+    /*border-bottom: 3px solid #4ec3c7;*/
+}
+
+
+.subheader-border {
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #4ec3c7;
+}
+
+
+.promo-sub-heading {
+    font-size: 2rem;
+    padding-bottom: 1rem;
+}
+
+
+.features-sub-heading {
+    font-size: 2rem;
+    padding-bottom: 3rem;
+}
+
+
+.cta-text {
+    color: #fff;
+}
+
+
+div.cta-text-box {
+    min-height: 20rem !important;
+}
+
+
+div.register-teaser {
+    background-color: #00182c;
+    /*background-color: #31989b;*/
+    padding: 5rem 5rem 5rem 5rem;
+}
+
+
+div.app-services {
+    text-align:center !important;
+}
+
+
+/****************************************
+*** Style Splashboard Cards
+****************************************/
+.card.custom-splashboard-card {
+
+}
+
+.card.emergency-card-styling {
+    border-color: #CC0022;
+    background-color: #CC0022;
+    color: #fff;
+}
+
+/****************************************
+*** Crisis Information Styling
+****************************************/
+.crisis-card-style {
+    min-height:200px;
+}
+
+/****************************************
+*** Landing Page Styling
+****************************************/
+.landing-page-card-style {
+    min-height:240px;
+}
+
+.landing-page-private-card-style {
+    min-height: 170px;
+}
+
+/****************************************
+*** User Landing Page Styling
+****************************************/
+ul.quick-stat-list {
+    padding-left: 1rem;
+}
+
+.img-case {
+    position:relative;
+    display:inline-block;
+}
+
+.img-case > .case-circle-shape {
+    position: absolute;
+    border: 3px solid #00182c;
+    width: 120%;
+    height: 80%;
+    top: 50%;
+    margin-top: -60%;
+    left: 50%;
+    margin-left: -60%;
+    border-radius: 100%;
+}
+
+.account-img-style {
+    border: 2px solid #4ec3c7 !important;
+}
+
+/****************************************
+*** Blog and Forum Card Styling (Footer Shades of base #00182c: 99D1FF, ADDAFF, C2E3FF, D6EDFF, EBF6FF)
+****************************************/
+
+div.card-header {
+    
+}
+
+
+div.card {
+    border-radius: 0rem;
+    /*border: 1px solid #00182c;*/
+}
+
+div.card-footer {
+    /*Using base color #00182c shades*/
+    /*background-color: rgba(235, 246, 255, 0.9); !* 90% of #EBF6FF*!*/
+    background-color: #fff;
+    border-top: 1px solid rgba(0, 24, 44, 0.2);
+}
+
+/**********************************
+*** Conversation Styling ***
+ *********************************/
+
+div.convo-initiator-body {
+    background-color: #00182c;
+    border: 4px solid #4ec3c7;
+    padding: 2rem;
+    margin-bottom: 3rem;
+}
+
+div.convo-initiator-body h3 {
+    color: #4ec3c7;
+}
+
+div.convo-initiator-body p.initial-body-text {
+    font-size: 1.5rem;
+    font-weight: 100;
+}
+
+/*********************************************
+*** General Button, Alerts, Badges Styling ***
+ ********************************************/
+
+.btn {
+    border-radius: 0rem;
+}
+/* Override default Bootstrap 4 styling for btn-outline-dark */
+.btn-outline-dark {
+    color: #00182c;
+    border-color: #00182c;
+}
+
+/* Override default Bootstrap 4 styling for btn-outline-dark */
+.btn-outline-dark:hover {
+    color: #fff;
+    border-color: #00182c;
+    background-color: #00182c;
+}
+
+/* Override default Bootstrap 4 styling for btn-outline-info */
+.btn-outline-info {
+    color: #00182c;
+    border-color: #00182c;
+    /*background-color: #6ac9cd;*/
+    /*background-color: #97d7d9;*/
+    background-color: #acdee0;
+}
+
+.btn-outline-info.disabled {
+    color: #00182c;
+}
+
+/* Override default Bootstrap 4 styling for btn-outline-info */
+.btn-outline-info:hover {
+    color: #fff;
+    border-color: #00182c;
+    background-color: #00182c;
+}
+
+
+/* Override default Bootstrap 4 styling for btn-outline-danger */
+.btn-outline-danger {
+    color: #ff4766;
+    border-color: #ff4766;
+    /*background-color: #6ac9cd;*/
+    /*background-color: #97d7d9;*/
+    background-color: #fff;
+}
+
+/* Override default Bootstrap 4 styling for btn-outline-danger */
+.btn-outline-danger:hover {
+    color: #fff;
+    border-color: #ff4766;
+    background-color: #ff4766;
+}
+
+
+.btn-danger {
+    color: #fff;
+    border-color: #F50029;
+    background-color: #F50029;
+}
+
+.btn-danger:hover {
+    /*background-color: #ff5e78;*/
+    background-color: #CC0022;
+}
+
+/****** Alert Styling *************/
+
+div.alert.customized-alert-status-success {
+    padding: 0.375rem 0.75rem;
+    border-radius: 0rem;
+    border: 1px solid #00182c;
+    margin: 0rem;
+}
+
+div.alert.customized-alert-status-danger {
+    padding: 0.375rem 0.75rem;
+    border-radius: 0rem;
+    border: 1px solid #00182c;
+    margin: 0rem;
+}
+
+/********** Badges *****************/
+
+.badge {
+    border-radius: 0rem;
+}
+
+.badge-primary {
+    background-color: #00182c;
+}
+
+/**********************************
+*** Override Like Button ***
+ *********************************/
+.like-style-btn:link, .like-style-btn:visited, .like-style-btn:focus, .like-style-btn:active {
+    background-color: #fff !important;
+}
+
+.like-style-btn:hover {
+    color: #007BE0 !important;
+    border-color: #007BE0 !important;
+}
+
+
+/**********************************
+*** Bootstrap Custom Card Style ***
+ *********************************/
+
+.custom-card-img-top {
+    object-fit:cover !important;
+    height: 25vw !important;
+    width: 100% !important;
+}
+
+
+/***************************
+*** Footer ***
+ **************************/
+
+footer.custom_footer {
+    min-height:20rem;
+    background-color:#00182c !important;
+    color: #fff;
+}
+
+div.section-padding {
+    padding-top: 3rem;
+    padding-left:4rem;
+}
+
+footer h5 {
+    margin-bottom: 1.1rem;
+}
+
+footer h5 span {
+    border-bottom: 2px solid #4ec3c7;
+    padding-bottom:0.25rem;
+}
+
+footer a:link {
+    color: #fff !important;
+}
+
+footer a:visited {
+    color: #fff !important;
+}
+
+footer a:hover {
+    color: #4ec3c7 !important;
+}
+
+footer a:focus {
+    color: #fff !important;
+}
+
+footer a:active {
+    color: #fff !important;
+}
+
+div.custom-copyright-styling {
+    border-top: 1px solid #4ec3c7;
+    margin-top:3rem;
+    padding: 3rem 0rem 0rem;
+}
+
+img.author-logo-custom-styling {
+    vertical-align:middle !important;
+    width:60px !important;
+    height:69px !important;
+}
+
+span.author-name-style, span.text-color-teal {
+    color: #4ec3c7;
+}
+
+
+/***************************
+*** General Form Styles ***
+ **************************/
+.required-asterisk:after {
+    content: " *";
+    color: #FF0000;
+}
+
+
+
+/***************************
+*** SVG Override ***
+ **************************/
+
+div.svg-style-override {
+
+}
+
+div.svg-style-override svg {
+
+}
+
+/***************************
+*** Style Breadcrumbs ***
+ **************************/
+ol.breadcrumb {
+    padding:0rem !important;
+    margin-bottom: 0rem !important;
+    background-color: transparent;
+}

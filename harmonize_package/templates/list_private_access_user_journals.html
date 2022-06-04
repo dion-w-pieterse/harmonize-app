@@ -1,0 +1,46 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}List Private Access User Journals{% endblock template_title %}
+
+{% block template_cta %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <h1 class="display-4">List of Users Who Granted {{ current_user.user_alias }} Privacy Access</h1>
+    <p class="lead">Here is a list of all the users that you have privacy access to view.</p>
+    <hr class="my-4">
+    {% if current_user.user_type == 'patient' %}
+        <a class="btn btn-outline-dark" href="{{ url_for('patient_splashboard') }}">Return To Patient Splashboard</a>
+    {% elif current_user.user_type == 'provider' %}
+        <a class="btn btn-outline-dark" href="{{ url_for('provider_splashboard') }}">Return To Provider Splashboard</a>
+    {% endif %}
+</div>
+</div>
+
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<ul class="list-group">
+    {% for user in users_who_granted_me_private_access %}
+    <li class="list-group-item">
+        <div class="d-flex bd-highlight">
+            <div class="p-2 bd-highlight">
+                <h5>User Alias: <a href="{{url_for('blog', user_id=user.id) }}">{{ user.user_alias }}</a></h5>
+                <small>User Type: {{ user.user_type }}</small>
+            </div>
+            <div class="p-2 ml-auto flex-shrink-1 bd-highlight">
+                {% if user.user_type == 'patient' %}
+                <a href="{{ url_for('blog', user_id=user.id)}}" class="btn btn-outline-secondary">Visit Their Journal</a>
+                {% elif user.user_type == 'provider' %}
+                <a href="{{ url_for('blog', user_id=user.id)}}" class="btn btn-outline-secondary">Visit Their Blog</a>
+                {% endif %}
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+

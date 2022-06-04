@@ -1,0 +1,59 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Forum Rooms{% endblock template_title %}
+
+{% block template_cta %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    {% if current_user.user_type == 'patient' %}
+        <h1 class="display-4">Forum Rooms</h1>
+        <p class="lead">Here are all the public rooms available for public participation. Any private rooms will not be visible here
+        to the general user.</p>
+
+    {% elif current_user.user_type == 'provider' %}
+        <h1 class="display-4">Forum Rooms</h1>
+        <p class="lead">Here are all the public rooms available for public participation. Any private rooms will not be visible here
+            to the general user.</p>
+
+    {% endif %}
+    <hr class="my-4">
+        <a class="btn btn-outline-info" href="{{ url_for('room_write') }}">Make a new public room</a>
+</div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+{% for room in available_rooms.items %}
+    <div class="card w-100 mb-4">
+        <div class="card-header">
+            <h5 class="card-title">Room: <a href="{{ url_for('room_view', room_id=room.id) }}">{{ room.room_name }}</a></h5>
+            <p class="card-text"><small>Created Date: {{ room.created_date.strftime('%m-%d-%Y at %H:%M:%S') }}</small>&nbsp;|&nbsp;
+                <small>Author: <a href="{{ url_for('blog', user_id=room.user.id) }}">{{ room.user.user_alias }}</a></small>&nbsp;|&nbsp;
+                <small>Private Room: {{ room.private_room }}</small>
+            </p>
+        </div>
+        <div class="card-body">
+            <p class="card-text"><strong>Summary:</strong><br>{{ room.room_summary }}</p>
+
+        </div>
+    </div>
+
+{% endfor %}
+
+
+{% for current_page in available_rooms.iter_pages(left_edge=3, left_current=3, right_current=4, right_edge=3): %}
+    {% if current_page %}
+        {% if current_page != available_rooms.page %}
+            <a class="btn btn-outline-info mb-4" href="{{ url_for('forum_rooms', current_page=current_page) }}">{{ current_page }}</a>
+        {% else %}
+            <a class="btn btn-info mb-4" href="{{ url_for('forum_rooms', current_page=current_page) }}">{{ current_page }}</a>
+        {% endif %}
+    {% else %}
+        <i class="fas fa-ellipsis-h"></i>
+    {% endif %}
+{% endfor %}
+
+
+{% endblock template_body %}

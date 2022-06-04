@@ -1,0 +1,143 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Register{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <h1 class="display-4">Register</h1>
+    <p class="lead">Please fill out the registration form to create an account.</p>
+    <hr class="my-4">
+    <p>Note: Please save your credentials somewhere safe.</p>
+</div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<form method="POST" action="{{ url_for('register') }}">
+    {{ form.hidden_tag() }}
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            {{ form.first_name.label(class="form-control-label required-asterisk") }}
+
+            {% if form.first_name.errors %}
+                {{ form.first_name(required=False, class="is-invalid form-control form-control-lg") }}
+                <div class="invalid-feedback">
+                    {% for error in form.first_name.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.first_name(required=False, class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form.last_name.label(class="form-control-label required-asterisk") }}
+
+            {% if form.last_name.errors %}
+                {{ form.last_name(required=False, class="is-invalid form-control form-control-lg") }}
+                <div class="invalid-feedback">
+                    {% for error in form.last_name.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.last_name(required=False, class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            {{ form.user_alias.label(class="form-control-label required-asterisk") }}
+
+            {% if form.user_alias.errors %}
+                {{ form.user_alias(required=False, class="is-invalid form-control form-control-lg") }}
+                <div class="invalid-feedback">
+                    {% for error in form.user_alias.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.user_alias(required=False, class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form.user_type.label(class="form-control-label required-asterisk") }}
+
+            {% if form.user_type.errors %}
+            {{ form.user_type(required=False, class="is-invalid form-control form-control-lg") }}
+            <div class="invalid-feedback">
+                {% for error in form.user_type.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+                {{ form.user_type(required=False, class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            {{ form.email.label(class="form-control-label required-asterisk") }}
+            {% if form.email.errors %}
+                {{ form.email(required=False, class="is-invalid form-control form-control-lg") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.email(required=False, class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form.confirm_email.label(class="form-control-label required-asterisk") }}
+            {% if form.confirm_email.errors %}
+                {{ form.confirm_email(required=False, class="is-invalid form-control form-control-lg") }}
+                <div class="invalid-feedback">
+                    {% for error in form.confirm_email.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.confirm_email(required=False, class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            {{ form.password.label(class="form-control-label required-asterisk") }}
+            {% if form.password.errors %}
+                {{ form.password(required=False, class="is-invalid form-control form-control-lg") }}
+                <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.password(required=False, class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form.confirm_password.label(class="form-control-label required-asterisk") }}
+            {% if form.confirm_password.errors %}
+                {{ form.confirm_password(required=False, class="is-invalid form-control form-control-lg") }}
+                <div class="invalid-feedback">
+                    {% for error in form.confirm_password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.confirm_password(required=False, class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-outline-dark">Register</button>
+</form>
+
+{% endblock template_body %}

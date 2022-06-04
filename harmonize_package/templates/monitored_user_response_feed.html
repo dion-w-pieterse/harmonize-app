@@ -1,0 +1,59 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Monitor All Users Forum Response Feed{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Forum Response Feed Of All Users {{ current_user.user_alias }} Is Monitoring</h1>
+        <p class="lead">These are all the public forum responses by users who you are actively monitoring.</p>
+        <hr class="my-4">
+        {% if current_user.user_type == 'patient' %}
+        <a class="btn btn-outline-dark" href="{{ url_for('patient_splashboard') }}">Return To Patient Splashboard</a>
+        {% elif current_user.user_type == 'provider' %}
+        <a class="btn btn-outline-dark" href="{{ url_for('provider_splashboard') }}">Return To Provider Splashboard</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+{% for response in monitored_responses %}
+<div class="card w-100 mb-4">
+    <div class="card-header">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Room: <a href="{{ url_for('forum_rooms', room_id=response.forum_room_id) }}">{{response.room_name}}</a></li>
+                <li class="breadcrumb-item">Convo: <a href="{{ url_for('convo_view', room_id=response.forum_room_id, convo_id=response.conversation_id) }}">{{response.convo_name}}</a></li>
+                <li class="breadcrumb-item">Response ID: {{ response.id }}</li>
+            </ol>
+        </nav>
+
+        <p class="card-text"><small>Created Date: {{ response.created_date.strftime('%m-%d-%Y at %H:%M:%S') }}</small>&nbsp;|&nbsp;
+            <small>Author: <a href="{{ url_for('landing_page', user_id=response.user_id) }}">{{ response.user_alias }}</a></small>&nbsp;|&nbsp;
+            <small>Private Entry: {{ response.private_response }}</small>
+        </p>
+    </div>
+    {% if response.resp_img != 'resp_placeholder_img.jpg' %}
+    <img class="custom-card-img-top" src="{{ url_for('static', filename=('user_forum_imgs/' + response.resp_img)) }}" class="card-img-top" alt="...">
+    {% endif %}
+    <div class="card-body">
+
+        <p class="card-text">{{ response.body }}</p>
+
+    </div>
+    <div class="card-footer d-flex flex-row bd-highlight">
+        {% if not queries.chk_user_liked_resp(user_id=current_user.id, convo_response_id=response.id) %}
+        <a href="{{ url_for('like_forum_response', convo_response_id=response.id) }}" class="btn d-inline-block btn-outline-info like-style-btn ajax-like-btn"><i class="far fa-thumbs-up"></i> Like(s): {{ queries.get_response_like_count(convo_response_id=response.id) }}</a>
+        {% else %}
+        <a href="{{ url_for('unlike_forum_response', convo_response_id=response.id) }}" class="btn d-inline-block btn-outline-danger"><i class="far fa-thumbs-down"></i> Un-Like</a>
+        <a href="{{ url_for('like_forum_response', convo_response_id=response.id) }}" class="btn d-inline-block btn-outline-info ajax-like-btn disabled ml-2"><i class="far fa-thumbs-up"></i> {{ queries.get_response_like_count(convo_response_id=response.id) }}</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}
+

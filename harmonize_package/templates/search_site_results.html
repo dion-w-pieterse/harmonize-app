@@ -1,0 +1,50 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Search Site Results{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <h1 class="display-4">Search Results For Forum:</h1>
+    <p class="lead">This is the search results page. Below are all the results returned from the search query.</p>
+    <hr class="my-4">
+</div>
+</div>
+{% endblock template_cta %}
+
+
+{% block template_body %}
+
+{% for result in forum_results.items %}
+
+<div class="card mb-4">
+    <div class="card-header">
+        <small>Created Date: {{ result.created_date.strftime('%m-%d-%Y at %H:%M:%S') }}</small>&nbsp;|&nbsp;<small>Author: <a href="{{url_for('landing_page', user_id=result.user.id) }}">{{ result.user.user_alias }}</a></small>
+    </div>
+    {% if result.resp_img != 'resp_placeholder_img.jpg' %}
+        <img class="custom-card-img-top" src="{{ url_for('static', filename=('user_forum_imgs/' + result.resp_img)) }}" class="card-img-top" alt="...">
+    {% endif %}
+    <div class="card-body">
+        <h5 class="card-title">Contained In Conversation: <a href="{{ url_for('convo_view', room_id=result.conversation.forum_room.id, convo_id=result.conversation.id)}}">{{ result.conversation.convo_name }}</a></h5>
+        <p class="card-text">{{ result.body }}</p>
+    </div>
+</div>
+
+{% endfor %}
+
+
+{% for current_page in forum_results.iter_pages(left_edge=3, left_current=3, right_current=4, right_edge=3): %}
+    {% if current_page %}
+        {% if current_page != forum_results.page %}
+            <a class="btn btn-outline-dark" href="{{ url_for('search_site', search=raw_search_query, current_page=current_page) }}">{{ current_page }}</a>
+        {% else %}
+            <a class="btn btn-outline-info" href="{{ url_for('search_site', search=raw_search_query, current_page=current_page) }}">{{ current_page }}</a>
+        {% endif %}
+    {% else %}
+        <i class="fas fa-ellipsis-h"></i>
+    {% endif %}
+{% endfor %}
+
+
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Public Room{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <h1 class="display-4">Public Room: {{ found_room.room_name }}</h1>
+        <p class="lead">Summary: {{ found_room.room_summary }}</p>
+        <p><small>Created Date: {{ found_room.created_date.strftime('%m-%d-%Y at %H:%M:%S') }}&nbsp;|&nbsp;
+            Author: <a href="{{ url_for('blog', user_id=found_room.user.id) }}">{{ found_room.user.user_alias }}</a>&nbsp;|&nbsp;
+            Private Room: {{ found_room.private_room }}</small>
+        </p>
+
+
+    <hr class="my-4">
+        <a href="{{ url_for('forum_rooms') }}" class="btn btn-outline-dark mt-2">Return to Public Forum Rooms</a>
+    {% if current_user.id == found_room.user_id %}
+        <a href="{{ url_for('room_edit', room_id=found_room.id, user_id=found_room.user.id) }}" class="btn btn-warning mt-2">Edit</a>
+        <a href="{{ url_for('room_remove', room_id=found_room.id) }}" class="btn btn-danger mt-2">Destroy Room and All Conversations</a>
+    {% endif %}
+    <a href="{{ url_for('convo_write', room_id=found_room.id) }}" class="btn btn-outline-info mt-2">Start a New Conversation</a>
+</div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+{% for conversation in conversations.items %}
+    <div class="card w-100 mb-4">
+        <div class="card-header">
+            <h5 class="card-title">Conversation: <a href="{{ url_for('convo_view', room_id=found_room.id, convo_id=conversation.id) }}">{{ conversation.convo_name }}</a></h5>
+            <p class="card-text"><small>Created Date: {{ conversation.created_date.strftime('%m-%d-%Y at %H:%M:%S') }}</small>&nbsp;|&nbsp;
+                <small>Author: <a href="{{ url_for('blog', user_id=conversation.user.id) }}">{{ conversation.user.user_alias }}</a></small>&nbsp;|&nbsp;
+                <small>Private Conversation: {{ conversation.private_conversation }}</small>
+            </p>
+        </div>
+        <div class="card-body">
+
+            <p class="card-text"><strong>Summary:</strong><br>{{ conversation.convo_summary }}</p>
+            <p class="card-text"><strong>Initiator Body:</strong><br>{{ conversation.convo_init_body }}</p>
+        </div>
+    </div>
+
+{% endfor %}
+
+{% for current_page in conversations.iter_pages(left_edge=3, left_current=3, right_current=4, right_edge=3): %}
+    {% if current_page %}
+        {% if current_page != conversations.page %}
+            <a class="btn btn-outline-dark" href="{{ url_for('room_view', room_id=found_room.id, current_page=current_page) }}">{{ current_page }}</a>
+        {% else %}
+            <a class="btn btn-outline-info" href="{{ url_for('room_view', room_id=found_room.id, current_page=current_page) }}">{{ current_page }}</a>
+        {% endif %}
+    {% else %}
+        <i class="fas fa-ellipsis-h"></i>
+    {% endif %}
+{% endfor %}
+
+
+{% endblock template_body %}

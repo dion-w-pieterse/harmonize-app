@@ -1,0 +1,59 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Write Public Room{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    {% if current_user.user_type == 'patient' %}
+        <h1 class="display-4">Write a Public Forum Room</h1>
+        <p class="lead">Write a new public room.</p>
+    {% elif current_user.user_type == 'provider' %}
+        <h1 class="display-4">Write a Public Forum Room</h1>
+        <p class="lead">Create a new public room.</p>
+    {% endif %}
+    <hr class="my-4">
+</div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+{% if public_room_form and current_user.is_authenticated %}
+<form action="{{ url_for('room_write') }}" method="POST">
+    {{ public_room_form.hidden_tag() }}
+
+    <div class="form-group">
+        {{ public_room_form.room_name.label(class="form-control-label") }}
+        {% if public_room_form.room_name.errors %}
+        {{ public_room_form.room_name(required=False, class="is-invalid form-control", cols=32, rows=1) }}
+        <div class="invalid-feedback">
+            {% for error in public_room_form.room_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ public_room_form.room_name(required=False, class="form-control", cols=32, rows=1) }}
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ public_room_form.room_summary.label(class="form-control-label") }}
+        {% if public_room_form.room_summary.errors %}
+        {{ public_room_form.room_summary(required=False, class="is-invalid form-control", cols=32, rows=1) }}
+        <div class="invalid-feedback">
+            {% for error in public_room_form.room_summary.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ public_room_form.room_summary(required=False, class="form-control", cols=32, rows=1) }}
+        {% endif %}
+    </div>
+
+    <p>{{ public_room_form.submit( class="btn btn-outline-dark") }}</p>
+</form>
+{% endif %}
+
+
+{% endblock template_body %}

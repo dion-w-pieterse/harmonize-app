@@ -1,0 +1,32 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Monitoree Entries{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <h1 class="display-4">Monitoree Entries for user: {{ current_user.user_alias }}</h1>
+    <p class="lead">This page shows all entries made my people that user: {{ current_user.user_alias }} is monitored by.</p>
+    <hr class="my-4">
+    <p>Please read all the entries and analyze them.</p>
+</div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<p>
+    {% for entry in get_monitoree_entries %}
+<div class="card w-100" style="width: 18rem;">
+    <img src="#" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{ entry.title }} <span style="color:red;">Created on:</span> {{ entry.created_date }} <span style="color: green;">Entry author:</span> {{ entry.user_alias }}</h5>
+        <p class="card-text">{{ entry.body }}</p>
+    </div>
+</div>
+{% endfor %}
+
+</p>
+
+
+{% endblock template_body %}

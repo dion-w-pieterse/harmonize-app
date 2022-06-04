@@ -1,0 +1,84 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Pug Test{% endblock template_title %}
+
+{% block template_cta %}
+
+{% endblock template_cta %}
+
+{% block template_body %}
+<h1>PugSQL Test Page</h1>
+
+<h2>Single Result:</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Body</th>
+        <th scope="col">Created Date</th>
+    </tr>
+    </thead>
+    <tbody>
+
+
+    <tr>
+        <td>{{ single_result.title }}</td>
+        <td>{{ single_result['body'] }}</td>
+        <td>{{ single_result.created_date }}</td>
+    </tr>
+
+
+    </tbody>
+</table>
+
+
+<h2>All Blog Post Results:</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Blog Post Title</th>
+        <th scope="col">Blog Post Body</th>
+        <th scope="col">Blog Post Created Date</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for entry in entries %}
+    <tr>
+        <td>{{ entry.title }}</td>
+        <td>{{ entry['body'] }}</td>
+        <td>{{ entry.created_date }}</td>
+
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+<h2>JOIN Results:</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Forum Subject Name</th>
+        <th scope="col">Thread Title</th>
+        <th scope="col">Thread Description</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for result in join_results %}
+    <tr>
+        <td>{{ result.first_name }}</td>
+        <td>{{ result['last_name'] }}</td>
+        <td>{{ result.subject_name }}</td>
+        <td>{{ result['title'] }}</td>
+        <td>{{ result.description }}</td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+{% endblock %}

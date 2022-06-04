@@ -1,0 +1,59 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Edit Forum Response{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    {% if current_user.user_type == 'patient' %}
+    <h1 class="display-4">Edit Forum Response</h1>
+    <p class="lead">Edit Forum Response</p>
+    {% elif current_user.user_type == 'provider' %}
+    <h1 class="display-4">Edit Forum Response</h1>
+    <p class="lead">Edit Forum Response</p>
+    {% endif %}
+    <hr class="my-4">
+</div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+{% if eprf_form and current_user.is_authenticated %}
+<form action="{{ url_for('response_edit', room_id=room_id, convo_id=convo_id, resp_id=resp_id) }}" method="POST" enctype="multipart/form-data">
+    {{ eprf_form.hidden_tag() }}
+
+    <div class="form-group">
+        {{ eprf_form.resp_img.label(class="form-control-label") }}
+        {% if eprf_form.resp_img.errors %}
+        {{ eprf_form.resp_img(class="is-invalid form-control-file") }}
+        <div class="invalid-feedback">
+            {% for error in eprf_form.resp_img.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ eprf_form.resp_img(class="form-control-file") }}
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ eprf_form.body.label(class="form-control-label") }}
+        {% if eprf_form.body.errors %}
+        {{ eprf_form.body(required=False, class="is-invalid form-control", cols=32, rows=4) }}
+        <div class="invalid-feedback">
+            {% for error in eprf_form.body.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ eprf_form.body(required=False, class="form-control", cols=32, rows=4) }}
+        {% endif %}
+    </div>
+
+    <p>{{ eprf_form.submit( class="btn btn-outline-dark") }}</p>
+</form>
+{% endif %}
+
+
+{% endblock template_body %}

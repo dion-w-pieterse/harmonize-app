@@ -1,0 +1,135 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Home Page{% endblock template_title %}
+
+{% block template_cta %}
+
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center p-sm-5 p-md-5 pt-lg-0 pt-xl-0 cta-img d-flex align-items-center flex-column justify-content-center">
+        {% if current_user.is_authenticated  and current_user.user_type == 'provider' %}
+            <h1 class="cta-header-style-auth">Provider: {{ current_user.user_alias }}</h1>
+            <p class="cta-text lead pb-3">Welcome, please check your splashboard<br>for your latest feeds and more</p>
+        {% elif current_user.is_authenticated  and current_user.user_type == 'patient' %}
+            <h1 class="cta-header-style-auth"><span class="">Patient: {{ current_user.user_alias }}</span></h1>
+            <p class="cta-text lead pb-3">Welcome, please check your splashboard<br>for your latest feeds and more</p>
+        {% elif current_user.is_authenticated  and current_user.user_type == 'admin' %}
+            <h1 class="cta-header-style-auth"><span class="">Admin: {{ current_user.user_alias }}</span></h1>
+            <p class="cta-text lead pb-3">Welcome, please access the data management center if you wish.</p>
+        {% else %}
+            <h1 class="cta-header-style">Harmonize</h1>
+            <p class="cta-text lead pb-3">Please read more about our product below.<br>If you like our services, feel free to register an account.</p>
+            <a href="{{url_for('register') }}" class="btn btn-outline-light">Get Started Today</a>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="register-teaser my-auto mx-auto text-center text-white w-100">
+    {% if current_user.is_authenticated %}
+    <h3 class="promo-sub-heading"><span class="subheader-border">Promo Code: #HEALTH100</span></h3>
+    <p class="cta-text lead pb-3">Please use this promocode with your next contact, and receive a discount<br>
+    for your first appointment as a patient, and extra 10% bonus if you are a provider.</p>
+    {% else %}
+    <h3 class="home-sub-headings">Register Today, and Get Your First Appointment Free!</h3>
+    <p class="cta-text lead pb-3">Create an account, and the first therapist you make contact with will give you<br>
+        their first appointment free of charge, on us!</p>
+    <a href="{{url_for('register') }}" class="btn btn-outline-light">Register Today</a>
+    {% endif %}
+</div>
+
+
+<div class="p-5">
+    <h3 class="features-sub-heading text-center"><span class="subheader-border">Features</span></h3>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-lg-4 mx-auto">
+            <div class="app-services">
+                <span class="fa-layers fa-6x">
+                  <i class="fas fa-circle"></i>
+                    <i class="fas fa-i-cursor fa-inverse" data-fa-transform="shrink-8"></i>
+                </span>
+                <h3 class="mt-3">Secure Blog Community</h3>
+                <p>
+                Blog as much as you wish, and have full control of every entry's privacy setting. Make your entry public or private.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 mx-auto">
+            <div class="app-services">
+                <span class="fa-layers fa-6x">
+                  <i class="fas fa-circle"></i>
+                    <i class="far fa-comments fa-inverse" data-fa-transform="shrink-8 left-1"></i>
+                </span>
+                <h3 class="mt-3">Forum Community</h3>
+                <p>
+                    Participate in the forum and create or join a conversation with other patients and providers.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 mx-auto">
+            <div class="app-services">
+                <span class="fa-layers fa-6x">
+                  <i class="fas fa-circle"></i>
+
+                    <i class="fas fa-hashtag fa-inverse" data-fa-transform="shrink-8"></i>
+                </span>
+                <h3 class="mt-3">Social Network</h3>
+                <p>
+                Experience a social network mental health community. Like, monitor, or mention other users in your blog or forum entries.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 mx-auto">
+            <div class="app-services">
+                <span class="fa-layers fa-6x">
+                  <i class="fas fa-circle"></i>
+                    <i class="fas fa-chart-pie fa-inverse" data-fa-transform="shrink-8"></i>
+                </span>
+                <h3 class="mt-3">Sentiment Analysis</h3>
+                <p>
+                Once granted privacy access, providers have access to Sentiment Analysis services for patient journal entries.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 mx-auto">
+            <div class="app-services">
+                <span class="fa-layers fa-6x">
+                  <i class="fas fa-circle"></i>
+                    <i class="fas fa-database fa-inverse" data-fa-transform="shrink-8"></i>
+                </span>
+                <h3 class="mt-3">Personal Splashboard</h3>
+                <p>
+                Access your personal splashboard, and gain insight into your social network of other patients and providers.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 mx-auto">
+            <div class="app-services">
+                <span class="fa-layers fa-6x">
+                  <i class="fas fa-circle"></i>
+                    <i class="fas fa-search fa-inverse" data-fa-transform="shrink-8"></i>
+                </span>
+                <h3 class="mt-3">Search</h3>
+                <p>
+                Search for providers and patients based on recommendations or self-discovery through interaction.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock template_cta %}
+
+
+{% block template_body %}
+
+{% endblock template_body %}

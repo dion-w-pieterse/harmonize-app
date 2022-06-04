@@ -1,0 +1,66 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Login{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <h1 class="display-4">Login</h1>
+    <p class="lead">Please enter your login credentials.</p>
+    <hr class="my-4">
+    <p>Note: You cannot access site services without logging in.</p>
+</div>
+</div>
+
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<form method="POST" action="{{ url_for('login') }}">
+    {{ form.hidden_tag() }}
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            {{ form.email.label(class="form-control-label required-asterisk") }}
+
+            {% if form.email.errors %}
+                {{ form.email(required=False, class="is-invalid form-control form-control-lg") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.email(required=False, class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form.password.label(class="form-control-label required-asterisk") }}
+
+            {% if form.password.errors %}
+                {{ form.password(required=False, class="is-invalid form-control form-control-lg") }}
+                <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.password(required=False, class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-check">
+            {{ form.remember(class="form-check-input") }}
+            {{ form.remember.label(class="form-check-label") }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form.submit(class="btn btn-outline-dark") }}
+    </div>
+
+</form>
+
+
+{% endblock template_body %}

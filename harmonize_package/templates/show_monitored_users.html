@@ -1,0 +1,40 @@
+{% extends "site_base.html" %}
+
+{% block template_title %}Show Monitored Users{% endblock template_title %}
+
+{% block template_cta %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <h1 class="display-4">{{ current_user.user_alias }} is Monitoring These Users</h1>
+    <p class="lead">This is a list of monitored users.</p>
+    <hr class="my-4">
+    {% if current_user.user_type == 'patient' %}
+        <a class="btn btn-outline-dark" href="{{ url_for('patient_splashboard') }}">Return To Patient Splashboard</a>
+    {% elif current_user.user_type == 'provider' %}
+        <a class="btn btn-outline-dark" href="{{ url_for('provider_splashboard') }}">Return To Provider Splashboard</a>
+    {% endif %}
+</div>
+</div>
+{% endblock template_cta %}
+
+{% block template_body %}
+
+<ul class="list-group">
+    {% for monitoree in monitored_users %}
+    <li class="list-group-item">
+            <div class="d-flex bd-highlight">
+                <div class="p-2 bd-highlight">
+                    <h5>User Alias: <a href="{{url_for('blog', user_id=monitoree.id) }}">{{ monitoree.user_alias }}</a></h5>
+                    <small>User Type: {{ monitoree.user_type }}</small>
+                </div>
+                <div class="p-2 ml-auto flex-shrink-1 bd-highlight">
+                    <a href="{{ url_for('un_monitor', user_id=monitoree.id)}}" class="btn btn-outline-secondary">Un-Monitor</a>
+                </div>
+            </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+
