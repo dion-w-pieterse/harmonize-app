@@ -471,6 +471,103 @@ Route Request Methods Allowed: GET, POST
 Route Function Signature: monitored_user_response_feed()
 Description:
 The route allows the current user to view all forum responses made by all users they are monitoring.
+  
+#### Activity: View Forum Response Feed of Patients I am Monitoring
+Action Required: Click the “View Patient Response Feed” button in the “Forum Response Feed of Patients I am Monitoring” card on the patient or provider splashboard page.
+Route URL: /monitored_patient_response_feed
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: monitored_patient_response_feed()
+Description:
+The route allows the current user to view forum responses made by patients they are monitoring.
+  
+#### Activity: View Forum Response Feed of Providers I am Monitoring
+Action Required: Click the “View Provider Response Feed” button in the “Forum Response Feed of Providers I am Monitoring” card on the patient or provider splashboard page.
+Route URL: /monitored_provider_response_feed
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: monitored_provider_response_feed()
+Description:
+The route allows the current user to view forum responses made by providers they are currently monitoring.
+  
+#### Activity: View Monitored Providers Being Mentioned In Journals Within the Last Week
+Action Required: Click the “View Journal Mentions” button in the “Monitored Providers Being Mentioned In Journals Within the Last Week” card on the patient or provider splashboard page.
+Route URL: /monitored_provider_journal_mentions
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: monitored_provider_journal_mentions()
+Description:
+The route allows the current user to view public journal entries that mention the providers they are currently monitoring.
+
+#### Activity: View Monitored Providers Being Mentioned In Forum Conversations Within the Last Week
+Action Required: Click the “View Conversations” button in the “Monitored Providers Being Mentioned In Forum Conversations Within the Last Week” card on the patient or provider splashboard page.
+Route URL: /monitored_provider_forum_mentions
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: monitored_provider_forum_mentions()
+Description:
+The route allows the current user to view forum conversations that include responses that mention providers they are currently monitoring.
+  
+#### Activity: Show Granted Access Users
+Action Required: Click the “Users I Granted Private Access” button in the “Manage Private Access Users” card on the patient or provider splashboard page.
+Route URL: /show_granted_access_users
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: show_granted_access_users()
+Description:
+The route allows the current user to see all users they granted private access to.
+  
+#### Activity: List Private Access User Journals
+Action Required: Click the “List User (Privacy Access)” button in the “List Users Where You Were Granted Privacy Access” card on the patient or provider splashboard page.
+Route URL: /list_private_access_user_journals
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: list_private_access_user_journals()
+Description:
+The route allows the current user to see a list of users who granted the current user privacy access.
+  
+#### Activity: View Conversations of Interest
+Action Required: Click the “View Conversations of Interest” button in the “Forum Conversations of Interest” card on the patient or provider splashboard page.
+Route URL: /forum_convos_of_interest
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: forum_convos_of_interest()
+Description:
+The route allows the current user to view all conversations that are related to their chosen conditions in their account.
+  
+#### Activity: View Recommended Patient Associations
+Action Required: Click the “View Associations” button in the “Recommended Patient Associations (Based on Conditions)” card on the patient or provider splashboard page.
+Route URL: /recommended_patient_to_patient_associations
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: recommended_patient_to_patient_associations()
+Description:
+The route allows the current user to explore patients who they may be interested in based on matching chosen conditions from their account.
+
+#### Activity: View Recommended Provider Associations
+Action Required: Click the “View Providers” button in the “Recommended Provider Associations (Based on Conditions)” card on the patient or provider splashboard page.
+Route URL: /recommended_provider_associations
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: recommended_provider_associations()
+Description:
+The route allows the current user to explore providers who they may be interested in based on matching conditions from the current user and the provider’s chosen specialty conditions.
+![image](https://user-images.githubusercontent.com/59713838/176731040-4ff32a1e-66f5-4d5f-ab08-7d1a8c93a298.png)
+
+
+
+
+
+
 
 
 
