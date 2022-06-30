@@ -164,6 +164,143 @@ The route allows a logged in provider user to choose the insurance companies tha
 **Description:** 
 The Full-Text Search feature was manually implemented for the application using PostgreSQL. All database table field data for all fields that are to be searched are tokenized. Tokens are turned into a vectorized, weighted index field for fast access. The weights are determined based on word relevance in accordance to predefined PostgreSQL English dictionary. Words that are irrelevant to the meaning of the data are removed. The search results deliver responses with links to their pertaining conversation based on relevance to the search query terms.
 
+#### Activity: Access Patient Journal / Provider Blog
+
+Action Required: User clicks the “View My Journal Blog” or “View My Blog” button in the navigation menu.
+Route URL: /blog/<int:user_id>
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’))
+- Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: blog()
+Description:
+Every patient and provider has access to their journal and blog, respectively. All blog entries are listed chronologically. This example uses a provider account to showcase the provider’s blog.
+
+#### Activity: View Individual Patient Journal / Provider Blog Entry Page
+Action Required: User clicks the title of a journal / blog entry.
+Route URL: /blog/<int:user_id>/entry/<int:blog_entry_id>
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+- Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: view_blog_entry(user_id, blog_entry_id)
+Description:
+Every patient and provider can view a journal entry or blog entry on its own separate page.
+
+#### Activity: Write A Patient Journal / Provider Blog Entry
+Action Required: User clicks the “Write an Entry” button on the user’s journal / blog landing page.
+Route URL: /blog/<int:user_id>/write
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+- Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: write_blog_entry(user_id)
+Description:
+Every patient and provider can write an new journal or blog entry, respectively.
+
+#### Activity: View Journal Blog Entry Analysis Page (Available To Provider If Granted Privacy Access)
+Action Required: Provider clicks the “View Analysis” button on a patient journal entry.
+Route URL: /blog/<int:user_id>/entry/<int:blog_entry_id>/analysis
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’)
+- Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+- Only a provider who is granted privacy access by a patient user type can view this page.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: view_journal_entry_analysis(user_id, blog_entry_id)
+Description:
+Providers who are granted privacy access by a patient will have access to this route, which enables them to see sentiment analysis and Name Entity Recognition for the specific journal entry.
+
+#### Activity: Edit A Patient Journal / Provider Blog Entry
+Action Required: User clicks the “Edit” button on the user’s individual journal / blog entry page.
+Route URL: /blog/<int:user_id>/entry/<int:blog_entry_id>/edit
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+•	Only the author of the blog entry can edit the blog entry.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: edit_blog_entry(user_id, blog_entry_id)
+Description:
+Every patient and provider can edit any entry they create.
+
+#### Activity: Remove Patient Journal / Provider Blog Entry
+Action Required: User clicks the “Remove” button on the user’s individual journal / blog entry page.
+Route URL: /blog/<int:user_id>/entry/<int:blog_entry_id>/remove
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+•	Only the author of the blog entry can remove the entry.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: remove_blog_entry(user_id, blog_entry_id)
+Description:
+Every patient and provider can remove any entry they create.
+
+#### Activity: Like A Journal Or Blog Entry
+Action Required: User clicks the “Like” button on the card of a specific patient journal or provider blog entry. The ‘Like’ button will be visible through various feeds as well.
+Route URL: /blog/like_blog_entry/<int:blog_entry_id>
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: like_blog_entry(blog_entry_id)
+Description:
+Every patient and provider can choose to like a patient journal or provider blog entry.
+
+#### Activity: Un-Like A Journal Or Blog Entry
+Action Required: User clicks the “Un-Like” button on the card of a specific patient journal or provider blog entry (only if they have first liked the entry). The “Un-Like” button will be visible through various feeds as well.
+Route URL: /blog/unlike_blog_entry/<int:blog_entry_id>
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: like_blog_entry(blog_entry_id)
+Description:
+Every patient and provider can choose to like a patient journal or provider blog entry.
+
+#### Activity: Like A Forum Response
+Action Required: User clicks the “Like” button on the card of a specific forum response. The “Like” button will be visible through various feeds as well.
+Route URL: /forum/like_forum_response/<int:convo_response_id>
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: like_forum_response(convo_response_id)
+Description:
+Every patient and provider can choose to like a forum response.
+
+#### Activity: Un-Like A Forum Response
+Action Required: User clicks the “Un-Like” button on the card of a specific forum response. The “Un-Like” button will be visible through various feeds as well.
+Route URL: /forum/unlike_forum_response/<int:convo_response_id>
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: unlike_forum_response(convo_response_id)
+Description:
+Every patient and provider can choose to un-like a forum response.
+
+#### Activity: View User’s Landing Page
+Action Required: User clicks the “<username>’s Landing Page” button on the user’s journal / blog landing page.
+Route URL: /landing_page/<int:user_id>
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: landing_page(user_id)
+Description:
+Every patient and provider can access their account landing page.
+  
+#### Activity: View Forum
+Action Required: User clicks the View Main Public Forum” button under “Account / Services” dropdown menu in navigation bar.
+Route URL: /forum_rooms
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: forum_rooms()
+Description:
+Every patient and provider can access application’s forum.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
