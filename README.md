@@ -970,18 +970,71 @@ The route allows the current user to change their account password.
 In order to avoid circular import conflicts and to ensure better organization, the application is structured as a package. The package “harmonize_package” directory is named after the application.
 
 #### 3.4.2: __init__.py
+  This file is required inside the “harmonize_package” folder to allow Python to know it is a package. The __init__.py file is the heart of the application where the application is initialized and where all the different parts of the application are united together.
   
 #### 3.4.3: forms.py
-  
+  This file holds all the form class definitions that are used throughout the application. The class definitions define all the fields and their pertaining validation checks.
+
 #### 3.4.4: image_processing.py
-  
+This file defines the ImageProcessor class. The ImageProcessor class is instantiated and used whenever an image requires formatting and saving. The class contains three methods:
+- ```format_img_for_account()```
+- ```format_img_for_blog()```
+- ```format_img_for_forum()```
+
 #### 3.4.5: mention_edit_processing.py
-  
+  This file defines the MentionEditProcessor class. The MentionEditProcessor class is instantiated and used whenever a patient journal blog or provider blog entry is edited. The edited text is run through this class methods to process for valid user alias mentions. The valid user alias mentions are recorded in the database, and any invalid mentions are visibly tagged for the user along with valid suggestions. Sentiment analysis is conducted on edited text body via the SentimentAnalyzer class. The sentiment scores are recalculated upon every text edit and stored in the database. The class contains three methods:
+- ```find_user_mentions_for_edit()```
+- ```set_blog_user_mentions_for_edit()```
+- ```process_collected_mentions_for_edit()```
+
 #### 3.4.6: mention_processing.py
-  
+  This file defines the MentionProcessor class. The MentionProcessor class is instantiated and used whenever a patient journal blog or provider blog entry is created. The entry text is run through this class methods to process for valid user alias mentions. The valid user alias mentions are recorded in the database, and any invalid mentions are visibly tagged for the user along with valid suggestions. Sentiment analysis is conducted on the text body via the SentimentAnalyzer class. The sentiment scores are calculated and stored in the database. The class contains three methods:
+- ```find_user_mentions()```
+- ```set_blog_user_mentions()```
+- ```process_collected_mentions()```
+
 #### 3.4.7: models.py
-  
+  This file defines the database schema for the application. All the database tables are defined here along with all their columns, column data types, and default values. All table relationships are defined here as well. All main tables and bridging tables are defined in their own class. The application uses an Object Relational Mapping (ORM) toolkit for Python, which is called Flask-SQLAlchemy. Python reads the SQLAlchemy table class definitions and translates them into raw SQL commands that create the database in the Database Management System (DBMS). The DBMS is PostgreSQL. Once the database is built the application also has the ability to define raw SQL scripts in the “queries” directory and execute them via a function name. The function name is defined by matching the SQL script’s file name and a specifically formatted filename note inside the script. This methodology is specific to the PugSQL toolkit. The following table classes are defined:
+- ```class TSVector(sa.types.TypeDecorator)```
+- ```class Monitor(db.Model)```
+- ```class BlogEntryLike(db.Model)```
+- ```class ConvoResponseLike(db.Model)```
+- ```class GrantedPrivacyAccess(db.Model)```
+- ```class UserBlogMention(db.Model)```
+- ```class UserForumMention(db.Model)```
+- ```class User(db.Model, UserMixin)```
+- ```class ChosenCondition(db.Model)```
+- ```class ConvoChosenCondition(db.Model)```
+- ```class InsuranceCoAccepted(db.Model)```
+- ```class OutOfNetServicesFor(db.Model)```
+- ```class BlogEntry(db.Model)```
+- ```class ForumRoom(db.Model)```
+- ```class Conversation(db.Model)```
+- ```class ConvoResponse(db.Model)```
+  The Flask Admin panel requires the base class table definitions to be overridden to provide additional functionality and features within the admin panel interface. To achieve this override, the table classes are defined again with the same base name followed by the word “View”. These override classes define the additional Flask Admin table features, and display options that will be visible when the administrator views the panel tables. All overridden tables have the following additional features:
+- column exclude list (column_exclude_list)
+- Table export capability (can_export=True)
+- Export file types defined: [‘csv’, ‘xls’, ‘xlsx’, ‘json’]
+- Default column sort name: (column_default_sort = …)
+- Sortable list of column names: (column_sortable_list = […])
+- Multi-Layer Search Filter: (column_filters = […])
+- Full-Text Search across all column names defined: […]
+The following table class overrides are defined:```
+- ```class UserView(ModelView)```
+- ```class ConversationView(ModelView)```
+- ```class BlogEntryView(ModelView)```
+- ```class ForumRoomView(ModelView)```
+- ```class ConvoResponseView(ModelView)```
+- ```class UserBlogMentionView(ModelView)```
+- ```class ChosenConditionView(ModelView)```
+- ```class OutOfNetServicesForView(ModelView)```
+  After the class overrides are defined, they are added to the Flask Admin instantiation object so they can become active features in the application.
+
 #### 3.4.7: resp_mention_edit_processing.py
+This file defines the RespMentionEditProcessor class. The RespMentionEditProcessor class is instantiated and used whenever a forum response entry is edited. The edited text is run through this class methods to process for valid user alias mentions. The valid user alias mentions are recorded in the database, and any invalid mentions are visibly tagged for the user along with valid suggestions. No sentiment analysis is conducted. The class contains three methods:
+- ```find_user_mentions_for_edit()```
+- ```set_forum_user_mentions_for_edit()```
+- ```process_collected_mentions_for_edit()```
   
 #### 3.4.8: resp_mention_processing.py
 
