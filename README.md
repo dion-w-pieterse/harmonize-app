@@ -53,4 +53,4 @@ Every registered user has a search feature in the navigation, which they can use
 
 
 
-## Documentation is pending. Please check back soon.
+## Documentation is incomplete, please check back.
