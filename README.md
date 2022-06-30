@@ -288,6 +288,204 @@ Route Function Signature: forum_rooms()
 Description:
 Every patient and provider can access application’s forum.
 
+#### Activity: Make A New Forum Room
+Action Required: User clicks the “Make a new public room” button in the header of the Forum Rooms page.
+Route URL: /forum_rooms/write
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: room_write()
+Description:
+Every patient and provider can create a forum room that is visible to all registered users.
+
+#### Activity: View a Specific Room
+Action Required: User clicks the name of a specific room listed when visiting the forum.
+Route URL: /forum_rooms/<int:room_id>
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: room_view(room_id)
+Description:
+Every registered patient and provider user can view a forum room.
+
+#### Activity: Edit a Specific Room
+Action Required: The author of a room clicks the “Edit” button when viewing a room page.
+Route URL: /forum_rooms/<int:room_id>/edit
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+•	Only the author of the room has the option to edit the room.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: room_edit(room_id)
+Description:
+The author of the room has the option to edit the room.
+
+#### Activity: Destroy a Specific Room & All Conversations Within That Room
+Action Required: The author of a room clicks the “Destroy Room and All Conversations” button when viewing a room page.
+Route URL: /forum_rooms/<int:room_id>/remove
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+•	Only the author of the room has the option to edit the room.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: room_remove(room_id)
+Description:
+The author of the room has the option to destroy the room and any conversations that exist within that room.
+
+#### Activity: View A Conversation
+Action Required: The current user clicks on a hypertext conversation link within a room.
+Route URL: /forum_rooms/<int:room_id>/convos/<int:convo_id>
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+•	Any user can create a new conversation.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: convo_view(room_id, convo_id)
+Description:
+This route will render a chosen conversation within a specific room.
+
+#### Activity: Start a New Conversation With A Room
+Action Required: The author or non-author of a room clicks the “Start a New Conversation” button when viewing a room page.
+Route URL: /forum_rooms/<int:room_id>/convos/write
+Authentication for Accessing Route: Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+•	Any user can create a new conversation.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: convo_write(room_id)
+Description:
+This route is used to create a new conversation within an existing room.
+
+#### Activity: Edit A Conversation
+Action Required: The conversation author user clicks the “Edit” button in room sub-menu.
+Route URL: /forum_rooms/<int:room_id>/convos/<int:convo_id>/edit
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: convo_edit(room_id, convo_id)
+Description:
+The route allow the user who authored the conversation to make edits.
+
+#### Activity: Remove A Conversation
+Action Required: User clicks the “Destroy Conversation and All Responses” button on the conversation page they authored.
+Route URL: /forum_rooms/<int:room_id>/convos/<int:convo_id>/remove
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: convo_remove(room_id, convo_id)
+Description:
+The route allows the conversation author to destroy the conversation and all pertaining responses.
+
+#### Activity: View A Response On Individual Page (not used)
+Action Required: User clicks the “logout” button in the navigation menu.
+Route URL: /forum_rooms/<int:room_id>/convos/<int:convo_id>/response/<int:resp_id>
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: response_view(room_id, convo_id, resp_id)
+Description:
+The route allows the user to edit their account information. Any existing data is prepopulated from the database.
+
+#### Activity: Write a Response
+Action Required: User clicks the “Write a Response” button on a conversation page.
+Route URL: /forum_rooms/<int:room_id>/convos/<int:convo_id>/write_response
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: response_write(room_id, convo_id)
+Description:
+The route allows any user to write a new response to an existing conversation.
+
+#### Activity: Edit a Response
+Action Required: The response author clicks the “Edit” button under the response text.
+Route URL: /forum_rooms/<int:room_id>/convos/<int:convo_id>/response/<int:resp_id>/edit
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: response_edit(room_id, convo_id, resp_id)
+Description:
+The route allows the response author to make changes to the response they wrote.
+
+#### Activity: Remove a Response
+Action Required: Response author clicks “Remove” button under response text.
+Route URL: /forum_rooms/<int:room_id>/convos/<int:convo_id>/response/<int:resp_id>/remove
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: response_remove(room_id, convo_id, resp_id)
+Description:
+The route allows the user to edit their account information. Any existing data is prepopulated from the database.
+
+#### Activity: View Patient Splashboard
+Action Required: User clicks the “View Patient Splashboard” button in the navigation menu drop down “Account / Services”.
+Route URL: /patient_splashboard
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: patient_splashboard()
+Description:
+The route loads the patient splashboard page.
+
+#### Activity: View Provider Splashboard
+Action Required: User clicks the “View Provider Splashboard” button in the drop down menu “Account / Services”.
+Route URL: /provider_splashboard
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: provider_splashboard()
+Description:
+The route loads the provider splashboard page.
+
+#### Activity: View Journal & Blog Feed of All Users The Current User is Monitoring
+Action Required: Click the “View All Users Feed” button in the “Journal & Blog Feed of All Users I am Monitoring” card on the patient or provider splashboard page.
+Route URL: /monitored_user_entry_feed
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: monitored_user_entry_feed()
+Description:
+The route shows the current user all the blog entries from all users they are currently monitoring.
+
+#### Activity: View Journal Feed of Patients I Am Monitoring
+Action Required: Click the “View Journal Feed” button in the “Journal Feed of Patients I am Monitoring” card on the patient or provider splashboard page.
+Route URL: /monitored_journal_entry_feed
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: monitored_journal_entry_feed()
+Description:
+The route allows the current user to read the journal entries of all patients they are monitoring.
+
+#### Activity: View Blog Feed of Providers the Current User Is Monitoring
+Action Required: Click the “View Blog Entries” button in the “Blog Feed of Providers I am Monitoring” card on the patient or provider splashboard page.
+Route URL: /monitored_blog_entry_feed
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: monitored_blog_entry_feed()
+Description:
+The route allows the current user to view all the blog entries of all providers they are monitoring.
+
+#### Activity: View Forum Response Feed of All Users I am Monitoring
+Action Required: Click the “View All User Response Feed” button in the “Forum Response Feed of All Users I am Monitoring” card on the patient or provider splashboard page.
+Route URL: /monitored_user_response_feed
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: monitored_user_response_feed()
+Description:
+The route allows the current user to view all forum responses made by all users they are monitoring.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
