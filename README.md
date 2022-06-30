@@ -163,7 +163,6 @@ The route allows a logged in provider user to choose the insurance companies tha
 
 **Description:** 
 The Full-Text Search feature was manually implemented for the application using PostgreSQL. All database table field data for all fields that are to be searched are tokenized. Tokens are turned into a vectorized, weighted index field for fast access. The weights are determined based on word relevance in accordance to predefined PostgreSQL English dictionary. Words that are irrelevant to the meaning of the data are removed. The search results deliver responses with links to their pertaining conversation based on relevance to the search query terms.
-![image](https://user-images.githubusercontent.com/59713838/176712162-41ce2d09-106c-4309-9bed-0b2de203694b.png)
 
 
 
