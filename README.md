@@ -1,6 +1,6 @@
 # harmonize-app
 ## Summarized Elements of Project Report
-
+#### Developer: Dion Pieterse
 Please contact author if you wish to view the entire project report.
 ## 3. METHODOLOGY
 
