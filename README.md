@@ -61,107 +61,107 @@ The application is developed using Python. The back end runs on Flask web framew
   The following section describes the most important route functions and classes that pertain the main features of the application. Mentioned functions do not include required arguments for the sake of brevity. Some route functions will call SQL queries via a parameterized SQL function call via PugSQL. The SQL queries themselves are not explained for the sake of brevity as well. Please note, the word “journal” implies the blog for patients, and “provider blog” implies the blog for providers.
 
 #### Activity: User Visits Home Page
-**Action Required:** The user visits the home page (index route) of the application:
+*Action Required:* The user visits the home page (index route) of the application:
 
-**Route URL:** ```/```
+*Route URL:* ```/```
 
-**Authentication for Accessing Route:** Unprotected Route Access (Open Access).
+*Authentication for Accessing Route:* Unprotected Route Access (Open Access).
 
-**Route Request Methods Allowed:** ```GET, POST```
+*Route Request Methods Allowed:* ```GET, POST```
 
-**Route Function Signature:** ```index()```
+*Route Function Signature:* ```index()```
 
-**Description:** The index route presents the user with the index.html template which give the user the options to read more about the application features, login, or register as a new user.
+*Description:* The index route presents the user with the index.html template which give the user the options to read more about the application features, login, or register as a new user.
 
 #### Activity: User Login
-**Action Required:** User clicks the “login” button in the navigation menu.
+*Action Required:* User clicks the “login” button in the navigation menu.
 
-**Route URL:** ```/login```
+*Route URL:* ```/login```
 
-**Authentication for Accessing Route:** Unprotected Route Access (Open Access)
+*Authentication for Accessing Route:* Unprotected Route Access (Open Access)
 
-**Route Request Methods Allowed:** ```GET, POST```
+*Route Request Methods Allowed:* ```GET, POST```
 
 **Route Function Signature:** ```login()```
 
-**Description:** 
+*Description:* 
 The login route allows registered users to log into the application.
 
 #### Activity: User Registers As A New User
-**Action Required:** User clicks the “register” button in the navigation menu.
+*Action Required:* User clicks the “register” button in the navigation menu.
 
-**Route URL:** ```/register```
+*Route URL:* ```/register```
 
-**Authentication for Accessing Route:** Unprotected Route Access (Open Access)
+*Authentication for Accessing Route:* Unprotected Route Access (Open Access)
 
-**Route Request Methods Allowed:** ```GET, POST```
+*Route Request Methods Allowed:* ```GET, POST```
 
-**Route Function Signature:** ```register()```
+*Route Function Signature:* ```register()```
 
-**Description:** 
+*Description:* 
 The route allows new users to create an account with the application. All inputs have validation.
 
 #### Activity: User Log Out of Application
-**Action Required:** User clicks the “logout” button in the navigation menu.
+*Action Required:* User clicks the “logout” button in the navigation menu.
 
-**Route URL:** ```/logout```
+*Route URL:* ```/logout```
 
-**Authentication for Accessing Route:** Protected Route (Login required)
+*Authentication for Accessing Route:* Protected Route (Login required)
 
-- **Route protected by:** valid email and hashed SHA256 with 32-bit salted password.
+- *Route protected by:* valid email and hashed SHA256 with 32-bit salted password.
 
-**Route Request Methods Allowed:** ```GET```
+*Route Request Methods Allowed:* ```GET```
 
-**Route Function Signature:** ```logout()```
+*Route Function Signature:* ```logout()```
 
-**Description:** 
+*Description:* 
 The route allows the user to logout of their account.
 
 #### Activity: Edit Account
-**Action Required:** User clicks the “Edit Account” button in the “Account / Services” dropdown of the navigation menu.
+*Action Required:* User clicks the “Edit Account” button in the “Account / Services” dropdown of the navigation menu.
 
-**Route URL:** ```/user_account/<int:user_id>```
+*Route URL:* ```/user_account/<int:user_id>```
 
-**Authentication for Accessing Route:** ```Protected Route (Login required)```
+*Authentication for Accessing Route:* ```Protected Route (Login required)```
 
-- **Route protected by:** valid email and hashed SHA256 with 32-bit salted password.
+- *Route protected by:* valid email and hashed SHA256 with 32-bit salted password.
 
-**Route Request Methods Allowed:** ```GET, POST```
+*Route Request Methods Allowed:* ```GET, POST```
 
-**Route Function Signature:** user_account(user_id)
+*Route Function Signature:* user_account(user_id)
 
-**Description:** 
+*Description:* 
 The route allows the user to edit their account information. Any existing data is prepopulated from the database.
 
 #### Activity: Choose Out-Of-Network Specialist Services
-**Action Required:** User clicks the “Choose Out-Of-Network Specialist Services” button in the navigation menu.
+*Action Required:* User clicks the “Choose Out-Of-Network Specialist Services” button in the navigation menu.
 
-**Route URL:** ```/insurance_provider_out_net_svces```
+*Route URL:* ```/insurance_provider_out_net_svces```
 
-**Authentication for Accessing Route:** Protected Route (Login required & user_type = ‘provider’)
+*Authentication for Accessing Route:* Protected Route (Login required & user_type = ‘provider’)
 - Route protected by: valid email and hashed SHA256 with 32-bit salted password.
 
-**Route Request Methods Allowed:** ```GET, POST```
+*Route Request Methods Allowed:* ```GET, POST```
 
-**Route Function Signature:** ```insurance_provider_out_net_svces()```
+*Route Function Signature:* ```insurance_provider_out_net_svces()```
 
-**Description:** 
+*Description:* 
 The route allows a logged in provider user to choose the insurance companies that they have worked for as out-of-network specialists.
 
 #### Activity: Full-Text Search:
-**Action Required:** User clicks the “Search” button in the navigation menu after typing their query in the “Find Something…” input field in the navigation menu.
+*Action Required:* User clicks the “Search” button in the navigation menu after typing their query in the “Find Something…” input field in the navigation menu.
 
-**Route URL:** ```/search_site```
+*Route URL:* ```/search_site```
 
-**Authentication for Accessing Route:** Protected Route (Login required & user_type = ‘provider’)
+*Authentication for Accessing Route:* Protected Route (Login required & user_type = ‘provider’)
 
-- **Route protected by:** valid email and hashed SHA256 with 32-bit salted password.
+- *Route protected by:* valid email and hashed SHA256 with 32-bit salted password.
 
-**Route Request Methods Allowed:** ```GET, POST```
+*Route Request Methods Allowed:* ```GET, POST```
 
-**Route Function Signature:** ```search_site()```
+*Route Function Signature:* ```search_site()```
 
-**Description:** 
+*Description:* 
 The Full-Text Search feature was manually implemented for the application using PostgreSQL. All database table field data for all fields that are to be searched are tokenized. Tokens are turned into a vectorized, weighted index field for fast access. The weights are determined based on word relevance in accordance to predefined PostgreSQL English dictionary. Words that are irrelevant to the meaning of the data are removed. The search results deliver responses with links to their pertaining conversation based on relevance to the search query terms.
 
 #### Activity: Access Patient Journal / Provider Blog
