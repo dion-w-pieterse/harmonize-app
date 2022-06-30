@@ -561,55 +561,152 @@ Route Request Methods Allowed: GET, POST
 Route Function Signature: recommended_provider_associations()
 Description:
 The route allows the current user to explore providers who they may be interested in based on matching conditions from the current user and the provider’s chosen specialty conditions.
-![image](https://user-images.githubusercontent.com/59713838/176731040-4ff32a1e-66f5-4d5f-ab08-7d1a8c93a298.png)
+  
+#### Activity: View Journal & Blog Feed Where Current User Is Granted Privacy Access
+Action Required: Click the “View Privacy Granted Feed” button in the “Journal & Blog Feed Where I Was Granted Privacy Access” card on the patient or provider splashboard page.
+Route URL: /get_grantor_private_access_user_journals
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: get_grantor_private_access_user_journals()
+Description:
+The route allows the current user to view journal and blog entries of users who granted the current user privacy access.
+  
+#### Activity: View Who Mentioned Me Lately
+Action Required: Click the “View Who Mentioned Me” button in the “Who Mentioned Me In The Last Week?” card on the patient or provider splashboard page.
+Route URL: /who_mentioned_me_lately
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: who_mentioned_lately()
+Description:
+The route allows the current user to view all recent mentions of them from all user journals/blogs and the forum within the past week.
+  
+#### Activity: View Providers Who Worked As Out-Of-Network Specialists
+Action Required: Click the “View Providers” button in the “Providers Who Worked As Out-Of-Network Specialists” card on the patient or provider splashboard page.
+Route URL: /match_out_of_network_specialists
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: match_out_of_network_specialists()
+Description:
+The route allows the current user to view providers who have worked as out-of-network specialists for the user’s chosen insurance company.
 
+#### Activity: View Crisis Information Hotline Contact Information
+Action Required: Click the “View Crisis Contact Info” button in the “Mental Health Crisis Emergency Services” card on the patient or provider splashboard page.
+Route URL: /crisis_information
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: crisis_information()
+Description:
+The route allows the current user to view crisis hotline phone numbers and other contact information in case an emergency occurs.
 
+#### Activity: Grant Privacy Access
+Action Required: The current user clicks on the “Grant Patient Privacy Access” button on another user’s landing page.
+Route URL: /grant_patient_privacy_access/<int:user_id>
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: grant_privacy_access(user_id)
+Description:
+The route allows the current user to grant another user privacy access to their account. This allows that user to view private information about the current user.
 
+#### Activity: Remove Privacy Access
+Action Required: The current user clicks “Remove Patient/Provider Privacy Access” button on another user’s landing page.
+Route URL: /remove_patient_privacy_access/<int:user_id>
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: remove_privacy_access(user_id)
+Description:
+The route allows the current user to remove privacy access that they previously granted to another user.
 
+#### Activity: Show Monitored Users
+Action Required: The current user clicks the “Monitored User List” button in the “Manage Users I am Monitoring” card in the patient/provider splashboard.
+Route URL: /show_monitored_users
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: show_monitored_users()
+Description:
+The route allows the current user view all the users they are monitoring.
+  
+#### Activity: Monitor A Patient
+Action Required: The current user clicks “Monitor This Patient” button on a patient’s landing page.
+Route URL: /monitor_patient/<int:user_id>
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: monitor_patient(user_id)
+Description:
+The route allows the current user to begin monitoring another patient user.
 
+#### Activity: Monitor A Provider
+Action Required: The current user clicks “Monitor This Provider” button on a provider’s landing page.
+Route URL: /monitor_provider/<int:user_id>
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: monitor_provider(user_id)
+Description:
+The route allows the current user to begin monitoring another provider user.
 
+#### Activity: Un-monitor A User
+Action Required: The current user clicks “Un-monitor This Patient” or “Un-monitor This Provider” (depending on the user type being viewed) on the user’s landing page.
+Route URL: /un_monitor/<int:user_id>
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: un_monitor(user_id)
+Description:
+The route allows the current user to un-monitor another user.
 
+#### Activity: Search For User Alias
+Action Required: The current user clicks “Search for User Alias” menu option under “Account / Services” in the navigation menu.
+Route URL: /search_for_user_alias
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: search_for_user_alias()
+Description:
+The route allows the current user to search for other users by their user alias.
 
+#### Activity: Change Current User’s Password
+Action Required: The current user clicks “Change Password” menu option under “Account / Services” in the navigation menu.
+Route URL: /change_password
+Authentication for Accessing Route: Protected Route (Login required)
+•	Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+Route Request Methods Allowed: GET, POST
+Route Function Signature: change_password()
+Description:
+The route allows the current user to change their account password.
+  
+### Additional Back-End Scripts
+#### 3.4.1 Purpose of Package Structure
+In order to avoid circular import conflicts and to ensure better organization, the application is structured as a package. The package “harmonize_package” directory is named after the application.
 
+#### 3.4.2: __init__.py
+  
+#### 3.4.3: forms.py
+  
+#### 3.4.4: image_processing.py
+  
+#### 3.4.5: mention_edit_processing.py
+  
+#### 3.4.6: mention_processing.py
+  
+#### 3.4.7: models.py
+  
+#### 3.4.7: resp_mention_edit_processing.py
+  
+#### 3.4.8: resp_mention_processing.py
 
+#### 3.4.9: sentiment_analysis.py
 
+#### 3.4.10: requirements.txt
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#### 3.4.11: start.py
 
 
 ## Documentation is incomplete, please check back.
