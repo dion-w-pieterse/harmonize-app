@@ -300,6 +300,7 @@ Every patient and provider can choose to like a patient journal or provider blog
 
 #### Activity: Like A Forum Response
 *Action Required:* User clicks the “Like” button on the card of a specific forum response. The “Like” button will be visible through various feeds as well.
+
 *Route URL:* ```/forum/like_forum_response/<int:convo_response_id>```
 
 *Authentication for Accessing Route:* Protected Route (Login required & (user_type = ‘provider’ , ‘patient’)
