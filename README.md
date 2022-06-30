@@ -42,7 +42,133 @@ Every registered user has access to the public forum. The public forum consists 
 - Where Are Monitored Providers Being Mentioned in Journals?
 - Where Are Monitored Providers Being Mentioned in Forum?
 
-Every registered user has a search feature in the navigation, which they can use to search the public forums. The search results will render a paginated list of responses with a breadcrumb link chain of the room, conversation and response. The user can click on any link and access those individual elements. The third type of user, "admin," which is not selectable upon account creation, exists on the system. The admin user has access to the site's administrator section. The admin section is a data management user interface that tabulates the database tables of the website.
+  Every registered user has a search feature in the navigation, which they can use to search the public forums. The search results will render a paginated list of responses with a breadcrumb link chain of the room, conversation and response. The user can click on any link and access those individual elements. The third type of user, "admin," which is not selectable upon account creation, exists on the system. The admin user has access to the site's administrator section. The admin section is a data management user interface that tabulates the database tables of the website.
+
+
+### 3.1.2 Activities
+1. Create wireframe and OO class diagrams for application.
+2. Setup the PostgreSQL server and create the project database.
+3. Create the project package, and install all dependencies.
+4. Build the back-end logic first, on top of a basic front-end skeleton.
+5. Once the back-end is complete and functioning, complete the front-end design.
+6. Perform testing on the application.
+7. Write the final report documentation for the project.
+8. Present and demonstrate the project.
+
+The application is developed using Python. The back end runs on Flask web framework. The front-end uses HTML5, Bootstrap 4 CSS Framework. The database management system is PostgreSQL. The graphics and designs were done using Adobe Photoshop and Illustrator. A minimum RAM requirement of 2GB is suggested to run it efficiently.
+
+### 3.3 Route Functions
+  The following section describes the most important route functions and classes that pertain the main features of the application. Mentioned functions do not include required arguments for the sake of brevity. Some route functions will call SQL queries via a parameterized SQL function call via PugSQL. The SQL queries themselves are not explained for the sake of brevity as well. Please note, the word “journal” implies the blog for patients, and “provider blog” implies the blog for providers.
+
+#### Activity: User Visits Home Page
+**Action Required:** The user visits the home page (index route) of the application:
+
+**Route URL:** ```/```
+
+**Authentication for Accessing Route:** Unprotected Route Access (Open Access).
+
+**Route Request Methods Allowed:** ```GET, POST```
+
+**Route Function Signature:** ```index()```
+
+**Description:** The index route presents the user with the index.html template which give the user the options to read more about the application features, login, or register as a new user.
+
+#### Activity: User Login
+**Action Required:** User clicks the “login” button in the navigation menu.
+
+**Route URL:** ```/login```
+
+**Authentication for Accessing Route:** Unprotected Route Access (Open Access)
+
+**Route Request Methods Allowed:** ```GET, POST```
+
+**Route Function Signature:** ```login()```
+
+**Description:** 
+The login route allows registered users to log into the application.
+
+#### Activity: User Registers As A New User
+**Action Required:** User clicks the “register” button in the navigation menu.
+
+**Route URL:** ```/register```
+
+**Authentication for Accessing Route:** Unprotected Route Access (Open Access)
+
+**Route Request Methods Allowed:** ```GET, POST```
+
+**Route Function Signature:** ```register()```
+
+**Description:** 
+The route allows new users to create an account with the application. All inputs have validation.
+
+#### Activity: User Log Out of Application
+**Action Required:** User clicks the “logout” button in the navigation menu.
+
+**Route URL:** ```/logout```
+
+**Authentication for Accessing Route:** Protected Route (Login required)
+
+- **Route protected by:** valid email and hashed SHA256 with 32-bit salted password.
+
+**Route Request Methods Allowed:** ```GET```
+
+**Route Function Signature:** ```logout()```
+
+**Description:** 
+The route allows the user to logout of their account.
+
+#### Activity: Edit Account
+**Action Required:** User clicks the “Edit Account” button in the “Account / Services” dropdown of the navigation menu.
+
+**Route URL:** ```/user_account/<int:user_id>```
+
+**Authentication for Accessing Route:** ```Protected Route (Login required)```
+
+- **Route protected by:** valid email and hashed SHA256 with 32-bit salted password.
+
+**Route Request Methods Allowed:** ```GET, POST```
+
+**Route Function Signature:** user_account(user_id)
+
+**Description:** 
+The route allows the user to edit their account information. Any existing data is prepopulated from the database.
+
+#### Activity: Choose Out-Of-Network Specialist Services
+**Action Required:** User clicks the “Choose Out-Of-Network Specialist Services” button in the navigation menu.
+
+**Route URL:** ```/insurance_provider_out_net_svces```
+
+**Authentication for Accessing Route:** Protected Route (Login required & user_type = ‘provider’)
+- Route protected by: valid email and hashed SHA256 with 32-bit salted password.
+
+**Route Request Methods Allowed:** ```GET, POST```
+
+**Route Function Signature:** ```insurance_provider_out_net_svces()```
+
+**Description:** 
+The route allows a logged in provider user to choose the insurance companies that they have worked for as out-of-network specialists.
+
+#### Activity: Full-Text Search:
+**Action Required:** User clicks the “Search” button in the navigation menu after typing their query in the “Find Something…” input field in the navigation menu.
+
+**Route URL:** ```/search_site```
+
+**Authentication for Accessing Route:** Protected Route (Login required & user_type = ‘provider’)
+
+- **Route protected by:** valid email and hashed SHA256 with 32-bit salted password.
+
+**Route Request Methods Allowed:** ```GET, POST```
+
+**Route Function Signature:** ```search_site()```
+
+**Description:** 
+The Full-Text Search feature was manually implemented for the application using PostgreSQL. All database table field data for all fields that are to be searched are tokenized. Tokens are turned into a vectorized, weighted index field for fast access. The weights are determined based on word relevance in accordance to predefined PostgreSQL English dictionary. Words that are irrelevant to the meaning of the data are removed. The search results deliver responses with links to their pertaining conversation based on relevance to the search query terms.
+![image](https://user-images.githubusercontent.com/59713838/176712162-41ce2d09-106c-4309-9bed-0b2de203694b.png)
+
+
+
+
+
 
 
 
